@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>[= title] — [= siteName]</title>
+  <link rel="stylesheet" href="/css/admin.css">
+  [= raw(head)]
+</head>
+<body>
+  [# if flashes.success]
+    [# each flashes.success as msg]
+      <div class="flash flash-success">[= msg]</div>
+    [/each]
+  [/if]
+  [# if flashes.error]
+    [# each flashes.error as msg]
+      <div class="flash flash-error">[= msg]</div>
+    [/each]
+  [/if]
+  [= raw(body)]
+  <script>
+    document.querySelectorAll('.flash').forEach(function(el) {
+      setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 300); }, 4000);
+    });
+  </script>
+</body>
+</html>

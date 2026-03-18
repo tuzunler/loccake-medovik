@@ -1,0 +1,67 @@
+<div class="admin-layout">
+  [> partials/admin-sidebar]
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>Menu Items</h1>
+      <a href="/admin/items/create" class="btn btn-primary">+ Add Item</a>
+    </div>
+
+    [# if items.length]
+      <div class="card">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Photo</th>
+              <th>Name</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            [# each items as item]
+              <tr>
+                <td>
+                  [# if item.image]
+                    <img src="[= item.image]" alt="[= item.name]" class="table-thumb">
+                  [# else]
+                    <span class="no-image">🧁</span>
+                  [/if]
+                </td>
+                <td><strong>[= item.name]</strong></td>
+                <td>
+                  [# if item.categoryId]
+                    <span class="badge badge-category">[= item.categoryId.name]</span>
+                  [# else]
+                    <span class="text-muted">—</span>
+                  [/if]
+                </td>
+                <td>[= item.price] $</td>
+                <td>
+                  [# if item.active]
+                    <span class="badge badge-active">Active</span>
+                  [# else]
+                    <span class="badge badge-inactive">Hidden</span>
+                  [/if]
+                </td>
+                <td class="actions">
+                  <a href="/admin/items/[= item._id]/edit" class="btn btn-small btn-outline">Edit</a>
+                  <form method="POST" action="/admin/items/[= item._id]/delete" class="inline-form" onsubmit="return confirm('Delete item?')">
+                    [= raw(csrfField)]
+                    <button type="submit" class="btn btn-small btn-danger">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            [/each]
+          </tbody>
+        </table>
+      </div>
+    [# else]
+      <div class="card empty-state">
+        <p>No items yet</p>
+        <a href="/admin/items/create" class="btn btn-primary">Add first item</a>
+      </div>
+    [/if]
+  </main>
+</div>

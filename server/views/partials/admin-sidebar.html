@@ -1,0 +1,29 @@
+<aside class="admin-sidebar">
+  <div class="sidebar-brand">
+    <span class="brand-icon">🍰</span>
+    <span class="brand-text">Loccake</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <a href="/admin" class="sidebar-link [# if activePage === 'dashboard']active[/if]">
+      <span class="link-icon">📊</span>
+      <span>Dashboard</span>
+    </a>
+    <a href="/admin/categories" class="sidebar-link [# if activePage === 'categories']active[/if]">
+      <span class="link-icon">📁</span>
+      <span>Categories</span>
+    </a>
+    <a href="/admin/items" class="sidebar-link [# if activePage === 'items']active[/if]">
+      <span class="link-icon">🧁</span>
+      <span>Menu Items</span>
+    </a>
+  </nav>
+
+  <div class="sidebar-footer">
+    <div class="sidebar-user">
+      <span class="user-icon">👤</span>
+      <span class="user-name">[= user.name]</span>
+    </div>
+    <a href="/auth/logout" class="sidebar-logout">Logout</a>
+  </div>
+</aside>

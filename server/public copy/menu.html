@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Cakes — Loccake Cafe | Russian Cakes &amp; Pastries</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       NAVIGATION
+       ═══════════════════════════════════════════ -->
+  <nav class="navbar">
+    <div class="navbar__inner">
+      <a href="index.html" class="logo">
+        <div class="logo-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><circle cx="7" cy="5" r=".5"/><circle cx="12" cy="5" r=".5"/><circle cx="17" cy="5" r=".5"/></svg></div>
+        <div class="logo-text">
+          Loccake Cafe
+          <span>Русская Пекарня</span>
+        </div>
+      </a>
+
+      <ul class="nav-menu">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="menu.html" class="nav-link nav-link--active">Our Cakes</a></li>
+        <li><a href="index.html#about" class="nav-link">Our Story</a></li>
+        <li><a href="index.html#how-it-works" class="nav-link">How to Order</a></li>
+        <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <div class="nav-cart">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+          <span class="nav-cart__badge">3</span>
+        </div>
+        <a href="menu.html" class="btn btn--primary btn--sm">Order Now</a>
+      </div>
+
+      <div class="nav-toggle">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ═══════════════════════════════════════════
+       PAGE BANNER
+       ═══════════════════════════════════════════ -->
+  <section class="page-banner">
+    <div class="container">
+      <nav class="breadcrumb">
+        <a href="index.html">Home</a>
+        <span class="breadcrumb__sep">›</span>
+        <span class="breadcrumb__current">Our Cakes</span>
+      </nav>
+      <h1>Our Cake Collection</h1>
+      <p>
+        Explore over 50 varieties of authentic Russian cakes, pastries,
+        and sweet treats — handcrafted fresh daily.
+      </p>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FILTER & SEARCH BAR
+       ═══════════════════════════════════════════ -->
+  <section class="section section--cream" style="padding-top: 0;">
+    <div class="container">
+
+      <div class="filter-bar">
+        <!-- Search Input -->
+        <div class="filter-group">
+          <label for="search">Search Cakes</label>
+          <div class="search-input-wrapper">
+            <span class="search-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
+            <input
+              type="text"
+              id="search"
+              class="filter-input"
+              placeholder="Search by name, flavor, or ingredient..."
+              aria-label="Search cakes"
+            >
+          </div>
+        </div>
+
+        <!-- Filter by Category -->
+        <div class="filter-group">
+          <label for="filter-category">Category</label>
+          <select id="filter-category" class="filter-select" aria-label="Filter by category">
+            <option value="">All Categories</option>
+            <option value="traditional">Traditional Russian</option>
+            <option value="wedding">Wedding Cakes</option>
+            <option value="birthday">Birthday Cakes</option>
+            <option value="pastry">Pastries &amp; Mini</option>
+            <option value="seasonal">Seasonal Specials</option>
+            <option value="custom">Custom Orders</option>
+          </select>
+        </div>
+
+        <!-- Sort By -->
+        <div class="filter-group">
+          <label for="sort-by">Sort By</label>
+          <select id="sort-by" class="filter-select" aria-label="Sort by">
+            <option value="popular">Most Popular</option>
+            <option value="newest">Newest First</option>
+            <option value="price-low">Price: Low → High</option>
+            <option value="price-high">Price: High → Low</option>
+            <option value="name-az">Name: A → Z</option>
+            <option value="rating">Highest Rated</option>
+          </select>
+        </div>
+
+        <!-- Search Button -->
+        <button class="btn btn--primary" type="button">Search</button>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════
+           CATEGORY TABS
+           ═══════════════════════════════════════ -->
+      <div style="margin-top: 2.5rem;">
+        <div class="category-tabs">
+          <a href="#" class="category-tab category-tab--active">
+            <span class="category-tab__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg></span>
+            All Cakes
+            <span class="category-tab__count">52</span>
+          </a>
+          <a href="#" class="category-tab">
+            <span class="category-tab__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="10" r="6"/><path d="M8 16v2a4 4 0 008 0v-2"/></svg></span>
+            Traditional Russian
+            <span class="category-tab__count">18</span>
+          </a>
+          <a href="#" class="category-tab">
+            <span class="category-tab__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></span>
+            Wedding
+            <span class="category-tab__count">12</span>
+          </a>
+          <a href="#" class="category-tab">
+            <span class="category-tab__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M12 8v3"/><circle cx="12" cy="5" r=".5"/></svg></span>
+            Birthday
+            <span class="category-tab__count">15</span>
+          </a>
+          <a href="#" class="category-tab">
+            <span class="category-tab__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M8 12a4 4 0 018 0"/></svg></span>
+            Pastries &amp; Mini
+            <span class="category-tab__count">24</span>
+          </a>
+          <a href="#" class="category-tab">
+            <span class="category-tab__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>
+            Seasonal
+            <span class="category-tab__count">8</span>
+          </a>
+          <a href="#" class="category-tab">
+            <span class="category-tab__icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
+            Custom
+          </a>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════
+           RESULTS INFO BAR
+           ═══════════════════════════════════════ -->
+      <div class="results-bar">
+        <p class="results-count">
+          Showing <strong>1 – 12</strong> of <strong>52</strong> cakes
+        </p>
+        <div class="view-toggle">
+          <div class="view-toggle__btn view-toggle__btn--active" title="Grid view">⊞</div>
+          <div class="view-toggle__btn" title="List view">≡</div>
+        </div>
+      </div>
+
+
+      <!-- ═══════════════════════════════════════
+           CAKE GRID
+           ═══════════════════════════════════════ -->
+      <div class="menu-grid">
+
+        <!-- 1. Medovik -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-1">
+            <span class="cake-card__badge badge--bestseller">Bestseller</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Traditional</span>
+              <span class="menu-card__tag">Honey</span>
+              <span class="menu-card__tag">Sour Cream</span>
+            </div>
+            <h4 class="menu-card__title">Medovik — Honey Cake</h4>
+            <p class="menu-card__description">
+              The queen of Russian cakes. Ultra-thin layers of honey-infused
+              sponge with a luscious sour cream filling that melts on contact.
+              Each layer is patiently baked by hand and aged overnight for
+              maximum flavor.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.9 (124)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 8–12 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24h advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $42</span>
+              <span class="menu-card__order-btn">Order → </span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 2. Napoleon -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-2">
+            <span class="cake-card__badge badge--popular">Popular</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Traditional</span>
+              <span class="menu-card__tag">Puff Pastry</span>
+              <span class="menu-card__tag">Custard</span>
+            </div>
+            <h4 class="menu-card__title">Napoleon Cake</h4>
+            <p class="menu-card__description">
+              The Russian take on mille-feuille, elevated to perfection.
+              Hundreds of paper-thin puff pastry layers with a rich vanilla
+              custard cream, finished with powdered sugar and pastry crumbs.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.8 (98)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 10–14 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24h advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $48</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 3. Ptichye Moloko -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-3">
+            <span class="cake-card__badge badge--new">New Recipe</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Traditional</span>
+              <span class="menu-card__tag">Soufflé</span>
+              <span class="menu-card__tag">Chocolate</span>
+            </div>
+            <h4 class="menu-card__title">Ptichye Moloko — Bird's Milk</h4>
+            <p class="menu-card__description">
+              A legendary Soviet-era cake. Light, cloud-like agar-agar soufflé
+              on a delicate sponge base, enrobed in a mirror-finish dark
+              chocolate glaze. Ethereal and unforgettable.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.9 (87)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 8–10 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 48h advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $52</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 4. Praga Cake -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-4">
+            <span class="cake-card__badge badge--bestseller">Bestseller</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Traditional</span>
+              <span class="menu-card__tag">Chocolate</span>
+              <span class="menu-card__tag">Butter Cream</span>
+            </div>
+            <h4 class="menu-card__title">Praga — Prague Cake</h4>
+            <p class="menu-card__description">
+              Three layers of rich chocolate sponge, filled with chocolate-butter
+              cream, and finished with a glossy dark chocolate mirror glaze.
+              The ultimate chocolate lover's dream.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.9 (156)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 8–12 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24h advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $45</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 5. Smetannik -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-5">
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Traditional</span>
+              <span class="menu-card__tag">Sour Cream</span>
+              <span class="menu-card__tag">Vanilla</span>
+            </div>
+            <h4 class="menu-card__title">Smetannik — Sour Cream Cake</h4>
+            <p class="menu-card__description">
+              A beloved homestyle Russian cake with alternating light and dark
+              sponge layers, generously soaked in a sweet sour cream filling.
+              Comforting, moist, and deeply satisfying.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.7 (68)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 8–10 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24h advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $38</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 6. Kiev Cake -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-6">
+            <span class="cake-card__badge badge--seasonal">Special</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Traditional</span>
+              <span class="menu-card__tag">Meringue</span>
+              <span class="menu-card__tag">Hazelnut</span>
+            </div>
+            <h4 class="menu-card__title">Kiev Cake — Киевский Торт</h4>
+            <p class="menu-card__description">
+              Two crispy hazelnut-cashew meringue discs sandwiching a luxurious
+              Charlotte cream, decorated with buttercream rosettes. A crunchy,
+              creamy, nutty masterpiece from the Soviet golden age.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.8 (91)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 8–10 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 48h advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $55</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 7. Kartoshka -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-7">
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Pastry</span>
+              <span class="menu-card__tag">Chocolate</span>
+              <span class="menu-card__tag">Biscuit</span>
+            </div>
+            <h4 class="menu-card__title">Kartoshka — Potato Cake</h4>
+            <p class="menu-card__description">
+              These adorable "potato-shaped" truffles are made from crumbled
+              biscuit mixed with butter cream and cocoa, rolled in cocoa
+              powder. A playful, nostalgic treat from every Russian childhood.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.6 (52)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 6 pieces per box</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Same day</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $18</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 8. Muraveynik -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-8">
+            <span class="cake-card__badge badge--new">New</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Traditional</span>
+              <span class="menu-card__tag">Condensed Milk</span>
+              <span class="menu-card__tag">Cookie</span>
+            </div>
+            <h4 class="menu-card__title">Muraveynik — Anthill Cake</h4>
+            <p class="menu-card__description">
+              Tiny crispy cookie sticks tossed in sweetened condensed milk
+              caramel, mounded into a whimsical anthill shape. The ultimate
+              crunchy, gooey, addictive Russian confection.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.7 (43)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 6–8 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 24h advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $35</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 9. Zefir -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-9">
+            <span class="cake-card__badge badge--popular">Popular</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Pastry</span>
+              <span class="menu-card__tag">Apple</span>
+              <span class="menu-card__tag">Agar-agar</span>
+            </div>
+            <h4 class="menu-card__title">Zefir — Russian Marshmallow</h4>
+            <p class="menu-card__description">
+              Nothing like Western marshmallows — Russian Zefir is an
+              elegant, fluffy confection made from apple purée, egg whites,
+              and agar-agar. Light, airy, and naturally delicious.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.8 (77)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 8 pieces per box</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Same day</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $22</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 10. Vatrushka -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-10">
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Pastry</span>
+              <span class="menu-card__tag">Tvorog</span>
+              <span class="menu-card__tag">Vanilla</span>
+            </div>
+            <h4 class="menu-card__title">Vatrushka — Cheese Pastry</h4>
+            <p class="menu-card__description">
+              A golden, pillowy yeast-dough ring cradling a generous mound
+              of sweetened tvorog (farmer's cheese) filling. Served warm
+              from the oven with a dusting of powdered sugar.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.5 (35)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 1 piece per order</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> Same day</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $8</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 11. Wedding Napoleon Tower -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-11">
+            <span class="cake-card__badge badge--seasonal">Wedding</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Wedding</span>
+              <span class="menu-card__tag">Multi-tier</span>
+              <span class="menu-card__tag">Napoleon</span>
+            </div>
+            <h4 class="menu-card__title">Wedding Napoleon Tower</h4>
+            <p class="menu-card__description">
+              A stunning three-tier Napoleon cake adorned with edible flowers,
+              gold leaf, and caramel drizzle. Each tier can be a different
+              flavor — customizable to your dream wedding.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 5.0 (28)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 40–60 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 5 days advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $280</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+        <!-- 12. Shokoladny Fondan -->
+        <a href="cake.html" class="menu-card">
+          <div class="menu-card__image cake-bg-12">
+            <span class="cake-card__badge badge--new">New</span>
+          </div>
+          <div class="menu-card__body">
+            <div class="menu-card__tags">
+              <span class="menu-card__tag menu-card__tag--highlight">Birthday</span>
+              <span class="menu-card__tag">Chocolate</span>
+              <span class="menu-card__tag">Fondant</span>
+            </div>
+            <h4 class="menu-card__title">Shokoladny Fondan</h4>
+            <p class="menu-card__description">
+              A dramatic chocolate celebration cake with liquid chocolate
+              center, mousse layers, and a dark cocoa velour finish.
+              Topped with hand-tempered chocolate decorations.
+            </p>
+            <div class="menu-card__meta">
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="var(--color-star)" stroke="none"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> 4.9 (64)</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M2 21h20"/></svg> 10–14 servings</span>
+              <span class="menu-card__meta-item"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 48h advance</span>
+            </div>
+            <div class="menu-card__footer">
+              <span class="menu-card__price"><span class="from">from</span> $65</span>
+              <span class="menu-card__order-btn">Order →</span>
+            </div>
+          </div>
+        </a>
+
+      </div>
+
+
+      <!-- ═══════════════════════════════════════
+           PAGINATION
+           ═══════════════════════════════════════ -->
+      <nav class="pagination" aria-label="Pagination">
+        <a href="#" class="pagination__btn">←</a>
+        <a href="#" class="pagination__btn pagination__btn--active">1</a>
+        <a href="#" class="pagination__btn">2</a>
+        <a href="#" class="pagination__btn">3</a>
+        <span class="pagination__dots">…</span>
+        <a href="#" class="pagination__btn">5</a>
+        <a href="#" class="pagination__btn">→</a>
+      </nav>
+
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       PROMO BANNER
+       ═══════════════════════════════════════════ -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="promo-banner">
+        <div class="promo-banner__content">
+          <h2>Can't Decide?<br>Try Our Tasting Box!</h2>
+          <p>
+            Get a curated selection of 6 mini cakes — one of each bestseller.
+            The perfect way to discover your new favorite.
+          </p>
+          <a href="cake.html" class="btn btn--primary btn--lg btn--round">Order Tasting Box — $39</a>
+        </div>
+        <div class="promo-banner__visual">
+          <div class="promo-banner__image"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       NEWSLETTER
+       ═══════════════════════════════════════════ -->
+  <section class="section section--cream">
+    <div class="container">
+      <div class="newsletter">
+        <h3>Get Early Access to Seasonal Specials</h3>
+        <p>
+          Be the first to know about limited-edition cakes, holiday collections,
+          and subscriber-only discounts.
+        </p>
+        <form class="newsletter-form">
+          <input type="email" class="form-input" placeholder="Enter your email address" aria-label="Email address">
+          <button type="submit" class="btn btn--primary">Subscribe</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ═══════════════════════════════════════════
+       FOOTER
+       ═══════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="logo">
+            <div class="logo-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-8a2 2 0 00-2-2H6a2 2 0 00-2 2v8"/><path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"/><path d="M2 21h20"/><path d="M7 8v3"/><path d="M12 8v3"/><path d="M17 8v3"/><circle cx="7" cy="5" r=".5"/><circle cx="12" cy="5" r=".5"/><circle cx="17" cy="5" r=".5"/></svg></div>
+            <div class="logo-text" style="color: #fff;">
+              Loccake Cafe
+              <span>Русская Пекарня</span>
+            </div>
+          </a>
+          <p>
+            Authentic Russian cakes and pastries, handcrafted with love
+            using recipes passed down through three generations.
+          </p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg></a>
+            <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+            <a href="#" aria-label="WhatsApp"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></a>
+            <a href="#" aria-label="Telegram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></a>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Quick Links</h4>
+          <ul class="footer__links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Our Cakes</a></li>
+            <li><a href="index.html#about">Our Story</a></li>
+            <li><a href="index.html#how-it-works">How to Order</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Categories</h4>
+          <ul class="footer__links">
+            <li><a href="menu.html">Traditional Russian</a></li>
+            <li><a href="menu.html">Wedding Cakes</a></li>
+            <li><a href="menu.html">Birthday Cakes</a></li>
+            <li><a href="menu.html">Pastries &amp; Mini</a></li>
+            <li><a href="menu.html">Seasonal Specials</a></li>
+            <li><a href="menu.html">Custom Orders</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="footer__heading">Contact Us</h4>
+          <div class="footer__contact-item">
+            <div class="footer__contact-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <div class="footer__contact-text">
+              <strong>Visit Us</strong>
+              42 Arbat Street, Moscow<br>
+              Russia, 119002
+            </div>
+          </div>
+          <div class="footer__contact-item">
+            <div class="footer__contact-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"/></svg></div>
+            <div class="footer__contact-text">
+              <strong>Call Us</strong>
+              +7 (495) 123-45-67
+            </div>
+          </div>
+          <div class="footer__contact-item">
+            <div class="footer__contact-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div class="footer__contact-text">
+              <strong>Working Hours</strong>
+              Mon – Sat: 8:00 – 20:00<br>
+              Sun: 9:00 – 18:00
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer__bottom">
+        <p>&copy; 2026 Loccake Cafe. All rights reserved.</p>
+        <div class="footer__bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Use</a>
+          <a href="#">Delivery Info</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
