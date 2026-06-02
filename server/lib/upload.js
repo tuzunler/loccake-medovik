@@ -4,7 +4,7 @@ import { extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
-const UPLOADS_DIR = join(__dirname, 'public', 'uploads')
+const UPLOADS_DIR = join(__dirname, '..', 'public', 'uploads')
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml']
 const MAX_SIZE = 5 * 1024 * 1024 // 5 MB
 
@@ -32,6 +32,8 @@ export async function saveImage(file) {
 
 export async function deleteImage(imageUrl) {
   if (!imageUrl || !imageUrl.startsWith('/uploads/')) return
+
+  if (imageUrl.startsWith('/uploads/seed-')) return
 
   const filename = imageUrl.replace('/uploads/', '')
 

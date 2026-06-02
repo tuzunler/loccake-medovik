@@ -14,23 +14,20 @@ export const itemStore = {
       name: data.name,
       description: data.description || '',
       price: Number(data.price) || 0,
-      weight: data.weight || '',
-      ingredients: data.ingredients || '',
-      calories: Number(data.calories) || 0,
-      portions: data.portions || '',
       categoryId: data.categoryId,
       image: data.image || '',
+      gallery: data.gallery || [],
       sortOrder: Number(data.sortOrder) || 0,
       active: data.active !== 'false' && data.active !== '0',
     })
   },
 
   async update(id, data) {
-    const allowed = ['name', 'description', 'price', 'weight', 'ingredients', 'calories', 'portions', 'categoryId', 'image', 'sortOrder', 'active']
+    const allowed = ['name', 'description', 'price', 'categoryId', 'image', 'gallery', 'sortOrder', 'active']
     const update = {}
     for (const key of allowed) {
       if (data[key] !== undefined) {
-        if (key === 'price' || key === 'calories' || key === 'sortOrder') {
+        if (key === 'price' || key === 'sortOrder') {
           update[key] = Number(data[key]) || 0
         } else if (key === 'active') {
           update[key] = data[key] !== 'false' && data[key] !== '0'

@@ -1,0 +1,173 @@
+<!-- HERO -->
+<section class="hero" style="background-image: url('/uploads/seed-full-medovik.jpg');">
+  <div class="hero__overlay"></div>
+  <div class="container hero__content">
+    <div class="hero__badge">— 2018'den beri · El yapımı lezzetler —</div>
+    <h1 class="hero__title">
+      Geleneksel Rus &<br><em>Avrupa Pastaları</em>
+    </h1>
+    <p class="hero__desc">
+      Moskova'dan İzmir'e uzanan lezzet yolculuğu. Efsanevi Medovik'ten
+      zarif Napolyon'a, her pasta özenle ve geleneksel tariflerle hazırlanır.
+    </p>
+    <div class="hero__buttons">
+      <a href="/menu" class="btn btn--primary btn--lg">Ürünleri Keşfet</a>
+      <a href="/about" class="btn btn--outline-light btn--lg">Hikayemiz</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section products-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Ürünlerimiz</span>
+      <h2 class="section-title">Eşsiz Lezzetler</h2>
+      <p class="section-desc">Farklı kültürlere ait, özenle hazırlanan pastalarımız</p>
+    </div>
+    <div class="products-grid">
+      [# each items as item]
+      <a href="/menu/[= item._id]" class="product-card">
+        <div class="product-card__img">
+          [# if item.image]
+          <img src="[= item.image]" alt="[= item.name]" loading="lazy">
+          [# else]
+          <img src="/uploads/seed-medovik.jpg" alt="[= item.name]" loading="lazy">
+          [/if]
+        </div>
+        <div class="product-card__info">
+          [# if item.categoryId]
+          <span class="product-card__category">[= item.categoryId.name]</span>
+          [/if]
+          <h3>[= item.name]</h3>
+          <p>[= item.description]</p>
+          <span class="product-card__price">₺[= item.price]</span>
+        </div>
+      </a>
+      [/each]
+    </div>
+    <div class="section-cta">
+      <a href="/menu" class="btn btn--primary btn--lg">Tüm Ürünleri Gör →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="container about-grid">
+    <div class="about-image">
+      <img src="/uploads/seed-irina-ozgur.jpg" alt="Loccake hakkında" loading="lazy">
+    </div>
+    <div class="about-content">
+      <span class="section-tag">Hakkımızda</span>
+      <h2 class="section-title">Loccake Ailesi</h2>
+      <p>
+        Moskova'da başlayan lezzet yolculuğu İzmir'de devam ediyor.
+        Loccake ilk defa 2018 yılında Alsancak'da kapılarını açtı.
+      </p>
+      <p>
+        Rusya'nın o büyülü pastalarını, enfes lezzetlerini geleneksel
+        usuller ve malzemeler ile sizler için üretiyoruz. Her pasta,
+        sevgiyle ve özenle hazırlanır.
+      </p>
+      <a href="/about" class="btn btn--primary">Daha Fazlasını Keşfedin</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Müşteri Yorumları</span>
+      <h2 class="section-title">Misafirlerimiz Ne Diyor?</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Medovik ve Spartak'a bayıldım... çok çok güzeldi. Böyle tadı yalnız Rusya'da yiyebilirsiniz."</p>
+        <span class="review-author">— Nur Hanım</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Tatlıları çok güzel, kahveleri de öyle. Serviste güler yüzlü, çok güzel insanlar."</p>
+        <span class="review-author">— Görkem K.</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"Herhalde İzmir'in en iyi beş pastacısından biri bunlar. Krema yapmayı biliyorlar."</p>
+        <span class="review-author">— Gülce B.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section gallery-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Galeri</span>
+      <h2 class="section-title">Lezzetlerden Kareler</h2>
+    </div>
+    <div class="gallery-grid">
+      <img src="/uploads/seed-cat_rus.jpg" alt="Medovik" loading="lazy">
+      <img src="/uploads/seed-spartak-1.jpg" alt="Spartak" loading="lazy">
+      <img src="/uploads/seed-full-medovik.jpg" alt="Medovik Full" loading="lazy">
+      <img src="/uploads/seed-medovik-1-1.jpg" alt="Medovik slice" loading="lazy">
+      <img src="/uploads/seed-napolyon-izmir.jpeg" alt="Napolyon" loading="lazy">
+      <img src="/uploads/seed-alsancak.jpeg" alt="Loccake Cafe" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" style="background: var(--color-warm);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">Hizmetlerimiz</span>
+      <h2 class="section-title">Sizin İçin Neler Yapıyoruz?</h2>
+    </div>
+    <div class="info-cards-grid">
+      <a href="/delivery" class="info-card">
+        <div class="info-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h3>Paket Servis</h3>
+        <p>Mağazadan teslim, WhatsApp ve telefon ile kolayca sipariş verin.</p>
+      </a>
+      <a href="/payment" class="info-card">
+        <div class="info-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <h3>Ödeme Yöntemleri</h3>
+        <p>Nakit, kredi kartı, EFT/havale ve online ödeme seçenekleri.</p>
+      </a>
+      <a href="/birthday" class="info-card">
+        <div class="info-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>Doğum Günü Partileri</h3>
+        <p>Özel günleriniz için pastalar ve organizasyon desteği sunuyoruz.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="content-block content-block--center">
+      <span class="section-tag">İletişim</span>
+      <h2 class="section-title">Bize Ulaşın</h2>
+      <p class="content-block__text">
+        Alsancak Mahallesi 1440 Sokak 20/B, Konak, İzmir<br>
+        <a href="tel:+905558937078" style="color: var(--color-gold); font-weight: 600;">0555 893 70 78</a> · 
+        Pzt–Cum: 12:00 – 20:00
+      </p>
+      <div class="content-block__actions">
+        <a href="/contact" class="btn btn--primary btn--lg">İletişim Sayfası</a>
+        <a href="https://wa.me/905558937078?text=Merhaba,%20bilgi%20almak%20istiyorum" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp ile Yazın</a>
+      </div>
+    </div>
+  </div>
+</section>

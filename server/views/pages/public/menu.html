@@ -1,0 +1,55 @@
+<!-- PAGE HEADER -->
+<section class="page-header" style="background-image: url('/uploads/seed-medovik-pasta-izmir.jpg');">
+  <div class="page-header__overlay"></div>
+  <div class="container page-header__content">
+    <h1>Ürünlerimiz</h1>
+    <p>Geleneksel Rus ve Avrupa pastaları, özenle hazırlanmış kurabiyeler</p>
+  </div>
+</section>
+
+<!-- MENU CONTENT -->
+<section class="section menu-section">
+  <div class="container">
+
+    [# each groups as group]
+    <div class="menu-category">
+      <h2 class="menu-category__title">[= group.category.name]</h2>
+      [# if group.category.description]
+      <p class="menu-category__desc">[= group.category.description]</p>
+      [/if]
+      <div class="products-grid">
+        [# each group.items as item]
+        <a href="/menu/[= item._id]" class="product-card">
+          <div class="product-card__img">
+            [# if item.image]
+            <img src="[= item.image]" alt="[= item.name]" loading="lazy">
+            [# else]
+            <img src="/uploads/seed-medovik.jpg" alt="[= item.name]" loading="lazy">
+            [/if]
+          </div>
+          <div class="product-card__info">
+            <span class="product-card__category">[= group.category.name]</span>
+            <h3>[= item.name]</h3>
+            <p>[= item.description]</p>
+            <span class="product-card__price">₺[= item.price]</span>
+          </div>
+        </a>
+        [/each]
+      </div>
+    </div>
+    [/each]
+
+    [# if groups.length === 0]
+    <div class="content-block content-block--center">
+      <p>Henüz ürün eklenmemiştir.</p>
+    </div>
+    [/if]
+
+    <!-- INFO NOTE -->
+    <div class="menu-note">
+      <p>Fiyatlar mağaza teslim fiyatlarıdır. Teslimat ücreti dahil değildir.</p>
+      <p>Sipariş ve teslimat için: <a href="tel:+905558937078">0555 893 70 78</a> · <a href="https://wa.me/905558937078" target="_blank" rel="noopener" style="color: #25d366;">WhatsApp</a></p>
+    </div>
+
+  </div>
+</section>

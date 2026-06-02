@@ -95,11 +95,26 @@ export async function categoryUpdate(request, { categoryStore }) {
 }
 
 export async function categoryRemove(request, { categoryStore }) {
+  const category = await categoryStore.getById(request.params.id)
+
+  if (!category) {
+    request.flash('error', 'Category not found')
+    return request.redirect('/admin/categories')
+  }
+
+  const linkedItemsCount = await categoryStore.countItems(request.params.id)
+  if (linkedItemsCount > 0) {
+    request.flash('error', 'Delete or move linked items before deleting this category')
+    return request.redirect('/admin/categories')
+  }
+
   const deleted = await categoryStore.delete(request.params.id)
 
   if (!deleted) {
     request.flash('error', 'Category not found')
   } else {
+    const { deleteImage } = await import('../../lib/upload.js')
+    if (category.image) await deleteImage(category.image)
     request.flash('success', 'Category deleted')
   }
 

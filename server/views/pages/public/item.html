@@ -1,0 +1,81 @@
+<!-- PRODUCT DETAIL -->
+<section class="section product-detail">
+  <div class="container">
+    <a href="/menu" class="back-link">← Ürünlere dön</a>
+    <div class="product-detail__grid">
+      <!-- Gallery -->
+      <div class="product-gallery">
+        <div class="product-gallery__main">
+          [# if item.image]
+          <img id="mainImage" src="[= item.image]" alt="[= item.name]">
+          [# else]
+          <img id="mainImage" src="/uploads/seed-medovik.jpg" alt="[= item.name]">
+          [/if]
+        </div>
+        [# if item.gallery.length > 0]
+        <div class="product-gallery__thumbs">
+          <img class="thumb active" src="[= item.image]" alt="[= item.name]" onclick="document.getElementById('mainImage').src=this.src;document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));this.classList.add('active')">
+          [# each item.gallery as photo]
+          <img class="thumb" src="[= photo]" alt="[= item.name]" onclick="document.getElementById('mainImage').src=this.src;document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));this.classList.add('active')">
+          [/each]
+        </div>
+        [/if]
+      </div>
+
+      <!-- Info -->
+      <div class="product-info">
+        [# if item.categoryId]
+        <span class="product-info__category">[= item.categoryId.name]</span>
+        [/if]
+        <h1 class="product-info__title">[= item.name]</h1>
+        <div class="product-info__price">₺[= item.price]</div>
+        <div class="product-info__desc">
+          <p>[= item.description]</p>
+        </div>
+        <div class="product-info__notes">
+          <div class="info-note">
+            <strong>Teslimat:</strong> Mağaza teslim fiyatıdır
+          </div>
+        </div>
+        <div class="product-info__actions">
+          <a href="https://wa.me/905558937078?text=Merhaba,%20[= item.name]%20sipariş%20vermek%20istiyorum" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">
+            WhatsApp ile Sipariş Ver
+          </a>
+          <a href="#" class="btn btn--outline btn--lg nav-link--ara-trigger">
+            Ara
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RELATED PRODUCTS -->
+[# if related.length > 0]
+<section class="section related-section">
+  <div class="container">
+    <h2 class="section-title">İlgili Ürünler</h2>
+    <div class="products-grid">
+      [# each related as r]
+      <a href="/menu/[= r._id]" class="product-card">
+        <div class="product-card__img">
+          [# if r.image]
+          <img src="[= r.image]" alt="[= r.name]" loading="lazy">
+          [# else]
+          <img src="/uploads/seed-medovik.jpg" alt="[= r.name]" loading="lazy">
+          [/if]
+        </div>
+        <div class="product-card__info">
+          [# if r.categoryId]
+          <span class="product-card__category">[= r.categoryId.name]</span>
+          [/if]
+          <h3>[= r.name]</h3>
+          <p>[= r.description]</p>
+          <span class="product-card__price">₺[= r.price]</span>
+        </div>
+      </a>
+      [/each]
+    </div>
+  </div>
+</section>
+[/if]

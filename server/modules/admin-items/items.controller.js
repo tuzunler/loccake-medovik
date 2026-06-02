@@ -46,15 +46,29 @@ export async function itemCreate(request, { itemStore, categoryStore }) {
 
   const createData = { ...request.body, name: name.trim() }
 
-  const file = request.files?.[0]
-  if (file) {
+  const { saveImage } = await import('../../lib/upload.js')
+  const files = request.files || []
+
+  const mainFile = files.find(f => f.fieldname === 'image')
+  if (mainFile) {
     try {
-      const { saveImage } = await import('../../lib/upload.js')
-      createData.image = await saveImage(file)
+      createData.image = await saveImage(mainFile)
     } catch (err) {
       request.flash('error', err.message)
       return request.redirect('/admin/items/create')
     }
+  }
+
+  const galleryFiles = files.filter(f => f.fieldname === 'gallery')
+  if (galleryFiles.length) {
+    const galleryPaths = []
+    for (const gf of galleryFiles) {
+      try {
+        const path = await saveImage(gf)
+        if (path) galleryPaths.push(path)
+      } catch (err) { /* skip invalid */ }
+    }
+    createData.gallery = galleryPaths
   }
 
   await itemStore.create(createData)
@@ -99,17 +113,44 @@ export async function itemUpdate(request, { itemStore, categoryStore }) {
 
   const updateData = { ...request.body, name: name.trim() }
 
-  const file = request.files?.[0]
-  if (file) {
+  const { saveImage, deleteImage } = await import('../../lib/upload.js')
+  const existing = await itemStore.getById(request.params.id)
+  const files = request.files || []
+
+  // Main image
+  const mainFile = files.find(f => f.fieldname === 'image')
+  if (mainFile) {
     try {
-      const { saveImage, deleteImage } = await import('../../lib/upload.js')
-      const existing = await itemStore.getById(request.params.id)
       if (existing?.image) await deleteImage(existing.image)
-      updateData.image = await saveImage(file)
+      updateData.image = await saveImage(mainFile)
     } catch (err) {
       request.flash('error', err.message)
       return request.redirect(`/admin/items/${request.params.id}/edit`)
     }
+  }
+
+  // Remove gallery images marked for deletion
+  const removeGallery = request.body.removeGallery
+  const toRemove = Array.isArray(removeGallery) ? removeGallery : (removeGallery ? [removeGallery] : [])
+  let currentGallery = existing?.gallery || []
+  if (toRemove.length) {
+    for (const img of toRemove) await deleteImage(img)
+    currentGallery = currentGallery.filter(g => !toRemove.includes(g))
+  }
+
+  // Add new gallery images
+  const galleryFiles = files.filter(f => f.fieldname === 'gallery')
+  if (galleryFiles.length) {
+    for (const gf of galleryFiles) {
+      try {
+        const path = await saveImage(gf)
+        if (path) currentGallery.push(path)
+      } catch (err) { /* skip invalid */ }
+    }
+  }
+
+  if (toRemove.length || galleryFiles.length) {
+    updateData.gallery = currentGallery
   }
 
   const updated = await itemStore.update(request.params.id, updateData)
@@ -124,11 +165,21 @@ export async function itemUpdate(request, { itemStore, categoryStore }) {
 }
 
 export async function itemRemove(request, { itemStore }) {
+  const item = await itemStore.getById(request.params.id)
+
+  if (!item) {
+    request.flash('error', 'Item not found')
+    return request.redirect('/admin/items')
+  }
+
   const deleted = await itemStore.delete(request.params.id)
 
   if (!deleted) {
     request.flash('error', 'Item not found')
   } else {
+    const { deleteImage } = await import('../../lib/upload.js')
+    if (item.image) await deleteImage(item.image)
+    for (const g of (item.gallery || [])) await deleteImage(g)
     request.flash('success', 'Item deleted')
   }
 
