@@ -1,5 +1,17 @@
 {
-    "rewrites": [
-      { "source": "/(.*)", "destination": "/api" }
-    ]
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/api" }
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": [
+        "views/**",
+        "modules/**",
+        "lib/**",
+        "models/**",
+        "index.js"
+      ],
+      "maxDuration": 30
+    }
   }
+}
