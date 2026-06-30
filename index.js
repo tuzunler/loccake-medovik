@@ -5,6 +5,7 @@ import User from './models/User.js'
 import Token from './models/Token.js'
 
 const isProduction = process.env.NODE_ENV === 'production'
+const isVercel = !!process.env.VERCEL
 const port = Number(process.env.PORT) || 4000
 
 // ── Connect to MongoDB ──
@@ -43,20 +44,19 @@ defineGuard('admin', () => (request) => {
 
 // ── Create application ──
 
-const app = await createApp({
+export const app = await createApp({
   baseUrl: import.meta.url,
-  modulesDir: '../modules',
+  modulesDir: './modules',
   views: './views',
-  static: './public',
-  spa: false,
-  watch: !isProduction,
-  bodyLimit: 10 * 1024 * 1024,  // 10 MB (for file uploads)
+  ...(!isVercel && { static: './public', spa: false }),
+  watch: !isProduction && !isVercel,
+  bodyLimit: 10 * 1024 * 1024,
 })
 
-// ── Start ──
+// ── Local dev only (npm start) ──
 
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`)
-})
-
-export default (req, res) => app.handle(req, res)
+if (!isVercel) {
+  app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`)
+  })
+}
