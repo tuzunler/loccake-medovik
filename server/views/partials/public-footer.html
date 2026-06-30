@@ -3,27 +3,28 @@
     <div class="footer__brand">
       <div class="footer__logo">
         <span class="logo-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5c0 .5-.1 1-.2 1.5h2.7a1.5 1.5 0 0 1 0 3h-.3L18 20a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2l-1.2-8.5h-.3a1.5 1.5 0 0 1 0-3h2.7A5 5 0 0 1 7 7a5 5 0 0 1 5-5z"/></svg></span>
-        <span class="logo-text">Loccake</span>
+        <span class="logo-text">[= layoutContent.brandName]</span>
       </div>
-      <p>Rus & Avrupa Pastaları<br>İzmir, Alsancak</p>
+      <p>[# each layoutContent.footerDescriptionLines as line][= line]<br>[/each]</p>
     </div>
     <div class="footer__links">
-      <h4>Sayfalar</h4>
-      <a href="/">Ana Sayfa</a>
-      <a href="/menu">Ürünler</a>
-      <a href="/about">Hakkımızda</a>
-      <a href="/contact">İletişim</a>
+      <h4>[= layoutContent.footerPagesTitle]</h4>
+      <a href="/">[= layoutContent.navHome]</a>
+      <a href="/menu">[= layoutContent.navMenu]</a>
+      <a href="/about">[= layoutContent.navAbout]</a>
+      <a href="/blog">[= layoutContent.navBlog]</a>
+      <a href="/contact">[= layoutContent.navContact]</a>
     </div>
     <div class="footer__links">
-      <h4>Hizmetler</h4>
-      <a href="/delivery">Paket Servis</a>
-      <a href="/payment">Ödeme Yöntemleri</a>
-      <a href="/birthday">Doğum Günü Partileri</a>
+      <h4>[= layoutContent.footerServicesTitle]</h4>
+      <a href="/delivery">[= layoutContent.footerDelivery]</a>
+      <a href="/payment">[= layoutContent.footerPayment]</a>
+      <a href="/birthday">[= layoutContent.footerBirthday]</a>
     </div>
   </div>
   <div class="footer__bottom">
     <div class="container">
-      <p>&copy; [= year] Loccake Cafe &amp; Cakes. Tüm hakları saklıdır.</p>
+      <p>&copy; [= year] [= layoutContent.footerCopyright]</p>
     </div>
   </div>
 </footer>

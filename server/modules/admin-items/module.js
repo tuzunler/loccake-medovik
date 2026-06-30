@@ -1,7 +1,7 @@
 export default {
   name: 'admin-items',
   prefix: '/admin/items',
-  pipe: ['cookieAuth', 'admin', 'csrf'],
+  pipe: ['rateLimit:120', 'cookieAuth', 'admin', 'csrf'],
 
   routes: [
     ['GET',  '',              'itemList'],

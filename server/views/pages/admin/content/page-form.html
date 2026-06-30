@@ -1,0 +1,59 @@
+<div class="admin-layout">
+  [> partials/admin-sidebar]
+  <main class="admin-main">
+    <div class="admin-header">
+      <div>
+        <h1>[= page.label]</h1>
+        <p class="text-muted">Edit fixed content for this page only.</p>
+      </div>
+      <div class="actions">
+        <a href="/admin/content" class="btn btn-outline">← All Content</a>
+        <a href="[# if page.key === 'home']/[# else][# if page.key === 'layout']/[# else][# if page.key === 'item']/menu[# else]/[= page.key][/if][/if][/if]" class="btn btn-outline" target="_blank" rel="noopener">View Page</a>
+      </div>
+    </div>
+
+    <form method="POST" action="/admin/content/[= page.key]" class="admin-form content-settings-form" enctype="multipart/form-data">
+      [= raw(csrfField)]
+
+      <section class="card content-page-card">
+        <div class="content-page-card__header">
+          <h2>[= page.label] Fields</h2>
+        </div>
+
+        <div class="content-fields-list">
+          [# each page.fields as field]
+          <div class="form-group content-field-row">
+            <label for="[= field.key]">[= field.label]</label>
+            [# if field.type === 'image']
+              <input type="hidden" id="[= field.key]" name="[= field.key]" value="[= field.value]">
+              [# if field.value]
+              <div class="content-image-preview">
+                <img src="[= field.value]" alt="[= field.label]">
+                <div class="content-image-preview__meta">
+                  <strong>[# if field.imageMeta]Original file: [= field.imageMeta.label][# else]Original file size unavailable[/if]</strong>
+                  <span>[= field.value]</span>
+                </div>
+              </div>
+              [/if]
+              <input type="file" id="[= field.key]File" name="[= field.key]File" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,image/svg+xml,image/avif" class="file-input">
+              <small class="form-hint">Upload a replacement image. JPG, PNG, WebP, GIF, SVG, AVIF — max 5 MB.</small>
+            [# else]
+            [# if field.type === 'textarea']
+              <textarea id="[= field.key]" name="[= field.key]" rows="4">[= field.value]</textarea>
+            [# else]
+              <input type="text" id="[= field.key]" name="[= field.key]" value="[= field.value]">
+            [/if]
+            [/if]
+            [# if field.help]<small class="form-hint">[= field.help]</small>[/if]
+          </div>
+          [/each]
+        </div>
+      </section>
+
+      <div class="form-actions content-form-actions">
+        <button type="submit" class="btn btn-primary">Save [= page.label]</button>
+        <a href="/admin/content" class="btn btn-outline">Cancel</a>
+      </div>
+    </form>
+  </main>
+</div>

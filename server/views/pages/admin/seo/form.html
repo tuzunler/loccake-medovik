@@ -1,0 +1,149 @@
+<div class="admin-layout">
+  [> partials/admin-sidebar]
+  <main class="admin-main">
+    <div class="admin-header">
+      <div>
+        <h1>SEO Settings</h1>
+        <p class="text-muted">Manage search snippets, sharing images, robots.txt and sitemap.xml.</p>
+      </div>
+      <a href="/" class="btn btn-outline" target="_blank" rel="noopener">View Site</a>
+    </div>
+
+    <form method="POST" action="/admin/seo" class="admin-form seo-settings-form">
+      [= raw(csrfField)]
+
+      <div class="card seo-settings-card">
+        <h2>Global SEO</h2>
+        <div class="form-row">
+          <div class="form-group form-group-wide">
+            <label for="siteUrl">Site URL *</label>
+            <input type="url" id="siteUrl" name="siteUrl" required value="[= settings.siteUrl]" placeholder="https://www.loccake.com.tr">
+            <small class="form-hint">Used for canonical links, Open Graph URLs, robots.txt and sitemap.xml.</small>
+          </div>
+          <div class="form-group form-group-wide">
+            <label for="defaultImage">Default Share Image</label>
+            <input type="text" id="defaultImage" name="defaultImage" value="[= settings.defaultImage]" placeholder="/uploads/seed-full-medovik.jpg">
+            <small class="form-hint">Used when a page or product has no custom image.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="robotsDisallow">robots.txt Disallow Paths</label>
+          <textarea id="robotsDisallow" name="robotsDisallow" rows="4" placeholder="/admin&#10;/auth">[= settings.robotsDisallow]</textarea>
+          <small class="form-hint">One path per line. Public pages stay allowed.</small>
+        </div>
+      </div>
+
+      <div class="card seo-settings-card">
+        <div class="seo-page-card__header">
+          <div>
+            <h2>Product Pages</h2>
+            <p class="text-muted">Controls SEO for dynamic product URLs like /menu/:id.</p>
+          </div>
+          <label class="seo-toggle">
+            <input type="checkbox" name="includeProductsInSitemap" value="true" [# if settings.includeProductsInSitemap]checked[/if]>
+            <span>Include products in sitemap</span>
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label for="productTitleTemplate">Product SEO Title Template</label>
+          <input type="text" id="productTitleTemplate" name="productTitleTemplate" maxlength="140" value="[= settings.productTitleTemplate]">
+          <small class="form-hint">Available variables: {name}, {category}, {price}, {description}</small>
+        </div>
+
+        <div class="form-group">
+          <label for="productDescriptionTemplate">Product Meta Description Template</label>
+          <textarea id="productDescriptionTemplate" name="productDescriptionTemplate" rows="3" maxlength="300">[= settings.productDescriptionTemplate]</textarea>
+          <small class="form-hint">This is applied to every product page and trimmed for search snippets.</small>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="productRobots">Product Robots Meta</label>
+            <input type="text" id="productRobots" name="productRobots" value="[= settings.productRobots]" placeholder="index, follow">
+          </div>
+          <div class="form-group">
+            <label for="productSitemapChangefreq">Product Sitemap Changefreq</label>
+            <select id="productSitemapChangefreq" name="productSitemapChangefreq">
+              <option value="weekly" [# if settings.productSitemapChangefreq === 'weekly']selected[/if]>weekly</option>
+              <option value="monthly" [# if settings.productSitemapChangefreq === 'monthly']selected[/if]>monthly</option>
+              <option value="daily" [# if settings.productSitemapChangefreq === 'daily']selected[/if]>daily</option>
+              <option value="yearly" [# if settings.productSitemapChangefreq === 'yearly']selected[/if]>yearly</option>
+              <option value="never" [# if settings.productSitemapChangefreq === 'never']selected[/if]>never</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="productSitemapPriority">Product Sitemap Priority</label>
+            <input type="number" id="productSitemapPriority" name="productSitemapPriority" min="0" max="1" step="0.1" value="[= settings.productSitemapPriority]">
+          </div>
+        </div>
+      </div>
+
+      <div class="seo-pages-stack">
+        [# each settings.pages as page]
+        <section class="card seo-page-card">
+          <div class="seo-page-card__header">
+            <div>
+              <h2>[= page.label]</h2>
+              <p class="text-muted">[= page.path]</p>
+            </div>
+            <label class="seo-toggle">
+              <input type="checkbox" name="[= page.key]_includeInSitemap" value="true" [# if page.includeInSitemap]checked[/if]>
+              <span>Include in sitemap</span>
+            </label>
+          </div>
+
+          <div class="form-group">
+            <label for="[= page.key]_title">SEO Title</label>
+            <input type="text" id="[= page.key]_title" name="[= page.key]_title" maxlength="120" value="[= page.title]">
+          </div>
+
+          <div class="form-group">
+            <label for="[= page.key]_description">Meta Description</label>
+            <textarea id="[= page.key]_description" name="[= page.key]_description" rows="3" maxlength="240">[= page.description]</textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="[= page.key]_path">Canonical Path</label>
+              <input type="text" id="[= page.key]_path" name="[= page.key]_path" value="[= page.path]">
+            </div>
+            <div class="form-group form-group-wide">
+              <label for="[= page.key]_image">Share Image</label>
+              <input type="text" id="[= page.key]_image" name="[= page.key]_image" value="[= page.image]">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="[= page.key]_robots">Robots Meta</label>
+              <input type="text" id="[= page.key]_robots" name="[= page.key]_robots" value="[= page.robots]" placeholder="index, follow">
+            </div>
+            <div class="form-group">
+              <label for="[= page.key]_changefreq">Sitemap Changefreq</label>
+              <select id="[= page.key]_changefreq" name="[= page.key]_changefreq">
+                <option value="weekly" [# if page.changefreq === 'weekly']selected[/if]>weekly</option>
+                <option value="monthly" [# if page.changefreq === 'monthly']selected[/if]>monthly</option>
+                <option value="daily" [# if page.changefreq === 'daily']selected[/if]>daily</option>
+                <option value="yearly" [# if page.changefreq === 'yearly']selected[/if]>yearly</option>
+                <option value="never" [# if page.changefreq === 'never']selected[/if]>never</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="[= page.key]_priority">Sitemap Priority</label>
+              <input type="number" id="[= page.key]_priority" name="[= page.key]_priority" min="0" max="1" step="0.1" value="[= page.priority]">
+            </div>
+          </div>
+        </section>
+        [/each]
+      </div>
+
+      <div class="form-actions seo-form-actions">
+        <button type="submit" class="btn btn-primary">Save SEO Settings</button>
+        <a href="/sitemap.xml" class="btn btn-outline" target="_blank" rel="noopener">Open Sitemap</a>
+        <a href="/robots.txt" class="btn btn-outline" target="_blank" rel="noopener">Open Robots</a>
+      </div>
+    </form>
+  </main>
+</div>

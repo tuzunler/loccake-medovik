@@ -1,3 +1,7 @@
+function isUploadedFile(file) {
+  return !!(file?.filename && file.size > 0)
+}
+
 export async function categoryList(request, { categoryStore }) {
   const categories = await categoryStore.list()
 
@@ -28,7 +32,7 @@ export async function categoryCreate(request, { categoryStore }) {
   }
 
   let image = ''
-  const file = request.files?.[0]
+  const file = (request.files || []).find(isUploadedFile)
   if (file) {
     try {
       const { saveImage } = await import('../../lib/upload.js')
@@ -70,7 +74,7 @@ export async function categoryUpdate(request, { categoryStore }) {
 
   const updateData = { name: name.trim(), description, sortOrder, active }
 
-  const file = request.files?.[0]
+  const file = (request.files || []).find(isUploadedFile)
   if (file) {
     try {
       const { saveImage, deleteImage } = await import('../../lib/upload.js')

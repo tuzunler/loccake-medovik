@@ -1,0 +1,74 @@
+<article class="blog-article">
+  <header class="blog-article__header" [# if post.coverImage]style="background-image: url('[= post.coverImage]');"[/if]>
+    <div class="blog-article__overlay"></div>
+    <div class="container blog-article__header-content">
+      <a href="/blog" class="blog-article__back">← Blog</a>
+      [# if post.publishedAtFormatted]
+        <time class="blog-article__date" datetime="[= post.publishedAtIso]">[= post.publishedAtFormatted]</time>
+      [/if]
+      <h1 class="blog-article__title">[= post.title]</h1>
+      [# if post.excerpt]
+        <p class="blog-article__excerpt">[= post.excerpt]</p>
+      [/if]
+    </div>
+  </header>
+
+  <div class="container blog-article__content">
+    [# each post.blocks as block]
+      [# if block.type === 'title']
+        <h2 class="blog-block blog-block--title">[= block.text]</h2>
+      [/if]
+
+      [# if block.type === 'subtitle']
+        <h3 class="blog-block blog-block--subtitle">[= block.text]</h3>
+      [/if]
+
+      [# if block.type === 'paragraph']
+        <p class="blog-block blog-block--paragraph">[= block.text]</p>
+      [/if]
+
+      [# if block.type === 'italic']
+        <p class="blog-block blog-block--italic"><em>[= block.text]</em></p>
+      [/if]
+
+      [# if block.type === 'image']
+        [# if block.image]
+          <figure class="blog-block blog-block--image">
+            <img src="[= block.image]" alt="[= block.imageAlt]" loading="lazy">
+            [# if block.imageAlt]
+              <figcaption>[= block.imageAlt]</figcaption>
+            [/if]
+          </figure>
+        [/if]
+      [/if]
+
+      [# if block.type === 'map']
+        [# if block.embedUrl]
+          <div class="blog-block blog-block--map">
+            <iframe
+              src="[= block.embedUrl]"
+              width="100%"
+              height="420"
+              style="border:0; border-radius: 12px;"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+              title="Loccake konum haritası">
+            </iframe>
+          </div>
+        [/if]
+      [/if]
+
+      [# if block.type === 'cta']
+        <div class="blog-block blog-block--cta">
+          [# if block.text]
+            <p>[= block.text]</p>
+          [/if]
+          [# if block.buttonLabel && block.buttonHref]
+            <a href="[= block.buttonHref]" class="btn btn--primary btn--lg">[= block.buttonLabel]</a>
+          [/if]
+        </div>
+      [/if]
+    [/each]
+  </div>
+</article>

@@ -1,3 +1,7 @@
+function isUploadedFile(file) {
+  return !!(file?.filename && file.size > 0)
+}
+
 export async function itemList(request, { itemStore }) {
   const items = await itemStore.list()
 
@@ -47,7 +51,7 @@ export async function itemCreate(request, { itemStore, categoryStore }) {
   const createData = { ...request.body, name: name.trim() }
 
   const { saveImage } = await import('../../lib/upload.js')
-  const files = request.files || []
+  const files = (request.files || []).filter(isUploadedFile)
 
   const mainFile = files.find(f => f.fieldname === 'image')
   if (mainFile) {
@@ -115,7 +119,7 @@ export async function itemUpdate(request, { itemStore, categoryStore }) {
 
   const { saveImage, deleteImage } = await import('../../lib/upload.js')
   const existing = await itemStore.getById(request.params.id)
-  const files = request.files || []
+  const files = (request.files || []).filter(isUploadedFile)
 
   // Main image
   const mainFile = files.find(f => f.fieldname === 'image')

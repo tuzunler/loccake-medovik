@@ -1,91 +1,156 @@
 import 'dotenv/config'
 import mongoose from 'mongoose'
-import { writeFile, mkdir } from 'node:fs/promises'
+import { mkdir, readdir } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import User from './models/User.js'
 import Category from './models/Category.js'
 import MenuItem from './models/MenuItem.js'
+import SeoSettings from './models/SeoSettings.js'
+import SiteContent from './models/SiteContent.js'
+import BlogPost from './models/BlogPost.js'
+import { seoStore } from './modules/admin-seo/seo.service.js'
+import { contentStore } from './modules/admin-content/content.service.js'
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url))
 const UPLOADS_DIR = join(__dirname, 'public', 'uploads')
 
 // ── Config ──
 
-const ADMIN_EMAIL = 'admin@loccake.ru'
-const ADMIN_PASSWORD = 'admin123'
+const ADMIN_EMAIL = 'admin@loccake.com'
+const ADMIN_PASSWORD = '123admin123cake'
 const ADMIN_NAME = 'Admin'
 
-// ── Image URLs from loccake.com ──
+const HERO_IMAGE = '/uploads/9875270b9d7bdb52e4e3707c3e5d92fd.jpg'
 
-const IMAGES = {
+// Keys map to files in public/uploads as seed-{key}.{ext}
+const IMAGE_KEYS = [
   // Category images
-  cat_rus: 'https://www.loccake.com/wp-content/gallery/puspastalari/medovik-ball%C4%B1-rus-pastas%C4%B1.jpg',
-  cat_avrupa: 'https://www.loccake.com/wp-content/uploads/2020/06/havuclu-cevizli-ananasli-pasta.jpg',
-  cat_kurabiye: 'https://www.loccake.com/wp-content/uploads/2016/11/cev.jpg',
+  'cat_rus',
+  'cat_avrupa',
+  'cat_kurabiye',
 
   // Product images
-  medovik: 'https://www.loccake.com/wp-content/uploads/2020/05/Medovik-rus-pastasi.jpg',
-  spartak: 'https://www.loccake.com/wp-content/uploads/2020/11/img-20230818-wa0007.jpg',
-  napolyon: 'https://www.loccake.com/wp-content/uploads/2020/11/napolyon-pasta-milfoylu-rus-pastasi.jpg',
-  havuclu: 'https://www.loccake.com/wp-content/uploads/2020/06/havuclu-cevizli-ananasli-pasta.jpg',
-  truffle: 'https://www.loccake.com/wp-content/uploads/2022/05/cikolatali-truffle-loccake-izmir.jpg',
-  oreshki: 'https://www.loccake.com/wp-content/uploads/2016/11/cev.jpg',
+  'medovik',
+  'spartak',
+  'napolyon',
+  'havuclu',
+  'truffle',
+  'oreshki',
 
   // Birthday party photos
-  'birthday-1': 'https://www.loccake.com/wp-content/gallery/dogumgunu/16.jpeg',
-  'birthday-2': 'https://www.loccake.com/wp-content/gallery/dogumgunu/15.jpeg',
-  'birthday-3': 'https://www.loccake.com/wp-content/gallery/dogumgunu/13.jpeg',
-  'birthday-4': 'https://www.loccake.com/wp-content/gallery/dogumgunu/12.jpeg',
-  'birthday-5': 'https://www.loccake.com/wp-content/gallery/dogumgunu/11.jpeg',
-  'birthday-6': 'https://www.loccake.com/wp-content/gallery/dogumgunu/9.jpeg',
+  'birthday-1',
+  'birthday-2',
+  'birthday-3',
+  'birthday-4',
+  'birthday-5',
+  'birthday-6',
 
   // Cafe photos
-  'cafe-1': 'https://www.loccake.com/wp-content/gallery/cafe/kordon-kafeleri.jpeg',
-  'cafe-2': 'https://www.loccake.com/wp-content/gallery/cafe/kordon-izmir-eglence.jpeg',
-  'cafe-3': 'https://www.loccake.com/wp-content/gallery/cafe/konak-kafeleri.jpeg',
-  'cafe-4': 'https://www.loccake.com/wp-content/gallery/cafe/izmir-sessiz-kafeler.jpeg',
-  'cafe-5': 'https://www.loccake.com/wp-content/gallery/cafe/izmir-kahve-fiyatlari.jpeg',
-  'cafe-6': 'https://www.loccake.com/wp-content/gallery/cafe/izmir-elit-kafeler.jpeg',
+  'cafe-1',
+  'cafe-2',
+  'cafe-3',
+  'cafe-4',
+  'cafe-5',
+  'cafe-6',
 
   // Extra gallery/page images
-  'full-medovik': 'https://www.loccake.com/wp-content/gallery/puspastalari/full-medovik.jpg',
-  'medovik-pasta-izmir': 'https://www.loccake.com/wp-content/gallery/puspastalari/medovik_pasta_izmir.jpg',
-  'medovik-pasta-izmir-2': 'https://www.loccake.com/wp-content/uploads/2020/11/medovik-pasta-izmir.jpg',
-  'medovik-1': 'https://www.loccake.com/wp-content/uploads/2020/04/medovik-1.jpg',
-  'full-medovik-2': 'https://www.loccake.com/wp-content/uploads/2020/04/full-medovik.jpg',
-  'irina-ozgur': 'https://www.loccake.com/wp-content/uploads/2020/04/irina-ozgur-loccake.jpg',
-  'spartak-1': 'https://www.loccake.com/wp-content/gallery/puspastalari/SPARTAK-1.jpg',
-  'medovik-1-1': 'https://www.loccake.com/wp-content/gallery/puspastalari/medovik-1-1.jpg',
-  'napolyon-izmir': 'https://www.loccake.com/wp-content/uploads/2020/11/napolyon-pasta-izmir.jpeg',
-  'alsancak': 'https://www.loccake.com/wp-content/gallery/cafe/izmir-alsancak-kafeleri.jpeg',
+  'full-medovik',
+  'medovik-pasta-izmir',
+  'medovik-pasta-izmir-2',
+  'medovik-1',
+  'full-medovik-2',
+  'irina-ozgur',
+  'spartak-1',
+  'medovik-1-1',
+  'napolyon-izmir',
+  'alsancak',
 
-  // Product gallery images (from loccake.com product pages)
-  'portakali-medovik': 'https://www.loccake.com/wp-content/uploads/2018/05/portakal%C4%B1-medovik.jpeg',
-  'medovik-siparis': 'https://www.loccake.com/wp-content/uploads/2020/05/Medovik-rus-pastasi-siparis.jpg',
-  'spartak-2': 'https://www.loccake.com/wp-content/uploads/2020/05/spartak.jpg',
-  'spartak-izmir': 'https://www.loccake.com/wp-content/uploads/2020/05/spartak-pasta-izmir.jpg',
-  'rus-napoleon': 'https://www.loccake.com/wp-content/uploads/2020/11/rus-napoleon-pasta.jpeg',
-  'napolyon-cilek': 'https://www.loccake.com/wp-content/uploads/2020/11/napolyon-dogum-gunu-pastasi-cilek-dekorlu.jpeg',
-  'havuclu-raffaello': 'https://www.loccake.com/wp-content/uploads/2020/06/havuclu-raffaello.jpg',
-  'dogal-kek': 'https://www.loccake.com/wp-content/uploads/2020/06/DOGAL-KEK-2.jpg',
-  'oreshki-2': 'https://www.loccake.com/wp-content/uploads/2021/06/adsiz-tasarim_20231203_205656_0000.jpg',
+  // Product gallery images
+  'portakali-medovik',
+  'medovik-siparis',
+  'spartak-2',
+  'spartak-izmir',
+  'rus-napoleon',
+  'napolyon-cilek',
+  'havuclu-raffaello',
+  'dogal-kek',
+  'oreshki-2',
+]
+
+// ── Local uploads helper ──
+
+let uploadsIndex = null
+
+async function getUploadsIndex() {
+  if (!uploadsIndex) {
+    const files = await readdir(UPLOADS_DIR)
+    uploadsIndex = new Map()
+
+    for (const file of files) {
+      if (!file.startsWith('seed-')) continue
+      const base = file.slice('seed-'.length).replace(/\.[^.]+$/, '')
+      uploadsIndex.set(base, '/uploads/' + file)
+    }
+  }
+
+  return uploadsIndex
 }
 
-// ── Download helper ──
-
-async function downloadImage(url, filename) {
-  try {
-    const res = await fetch(url)
-    if (!res.ok) throw new Error(`HTTP ${res.status}`)
-    const buffer = Buffer.from(await res.arrayBuffer())
-    const filePath = join(UPLOADS_DIR, filename)
-    await writeFile(filePath, buffer)
-    console.log(`  + Downloaded: ${filename}`)
-    return '/uploads/' + filename
-  } catch (err) {
-    console.log(`  x Failed to download ${filename}: ${err.message}`)
+async function resolveLocalImage(key) {
+  const path = (await getUploadsIndex()).get(key)
+  if (!path) {
+    console.log(`  x Missing upload: seed-${key}.*`)
     return ''
+  }
+
+  console.log(`  > ${path}`)
+  return path
+}
+
+function seedContentDocument(settings) {
+  return {
+    key: 'default',
+    pages: settings.pages.map(page => ({
+      key: page.key,
+      label: page.label,
+      fields: page.fields.map(field => ({
+        key: field.key,
+        label: field.label,
+        type: field.type,
+        value: page.key === 'home' && field.key === 'heroImage'
+          ? HERO_IMAGE
+          : field.value,
+        help: field.help || '',
+      })),
+    })),
+  }
+}
+
+function seedSeoDocument(settings) {
+  return {
+    key: 'default',
+    siteUrl: settings.siteUrl,
+    defaultImage: settings.defaultImage,
+    robotsDisallow: settings.robotsDisallow,
+    productTitleTemplate: settings.productTitleTemplate,
+    productDescriptionTemplate: settings.productDescriptionTemplate,
+    productRobots: settings.productRobots,
+    productSitemapChangefreq: settings.productSitemapChangefreq,
+    productSitemapPriority: settings.productSitemapPriority,
+    includeProductsInSitemap: settings.includeProductsInSitemap,
+    pages: settings.pages.map(page => ({
+      key: page.key,
+      label: page.label,
+      path: page.path,
+      title: page.title,
+      description: page.description,
+      image: page.image,
+      robots: page.robots,
+      changefreq: page.changefreq,
+      priority: page.priority,
+      includeInSitemap: page.includeInSitemap,
+    })),
   }
 }
 
@@ -112,20 +177,20 @@ if (existingAdmin) {
   console.log(`     Password: ${ADMIN_PASSWORD}`)
 }
 
-// 2. Download all images
-console.log('\n── Downloading images ──')
-const downloaded = {}
-for (const [key, url] of Object.entries(IMAGES)) {
-  const ext = url.match(/\.\w+$/)?.[0] || '.jpg'
-  const filename = `seed-${key}${ext}`
-  downloaded[key] = await downloadImage(url, filename)
+// 2. Resolve local upload paths
+console.log('\n── Resolving local uploads ──')
+const uploads = {}
+for (const key of IMAGE_KEYS) {
+  uploads[key] = await resolveLocalImage(key)
 }
 
-// 3. Clear existing categories and items
+// 3. Clear existing site data
 console.log('\n── Clearing old data ──')
 await MenuItem.deleteMany({})
 await Category.deleteMany({})
-console.log('  + Cleared categories and menu items')
+await SeoSettings.deleteMany({})
+await SiteContent.deleteMany({})
+console.log('  + Cleared categories, menu items, SEO settings and content settings')
 
 // 4. Create categories
 console.log('\n── Creating categories ──')
@@ -134,7 +199,7 @@ const categories = {}
 categories.rus = await Category.create({
   name: 'Rus Pastaları',
   description: 'Geleneksel Rus pastacılığının en sevilen klasikleri',
-  image: downloaded.cat_rus,
+  image: uploads.cat_rus,
   sortOrder: 1,
   active: true,
 })
@@ -143,7 +208,7 @@ console.log(`  + Category: ${categories.rus.name}`)
 categories.avrupa = await Category.create({
   name: 'Avrupa Pastaları',
   description: 'Avrupa pastacılık geleneklerinden seçme lezzetler',
-  image: downloaded.cat_avrupa,
+  image: uploads.cat_avrupa,
   sortOrder: 2,
   active: true,
 })
@@ -152,7 +217,7 @@ console.log(`  + Category: ${categories.avrupa.name}`)
 categories.kurabiye = await Category.create({
   name: 'Kurabiyeler',
   description: 'El yapımı geleneksel kurabiyeler',
-  image: downloaded.cat_kurabiye,
+  image: uploads.cat_kurabiye,
   sortOrder: 3,
   active: true,
 })
@@ -165,28 +230,28 @@ const items = [
   {
     name: 'Medovik | Ballı Cevizli Rus Pastası',
     description: 'Medovik, Rus pastacılık geleneğinin en sevilen klasiklerinden biridir. Bal ile hazırlanan ince hamur katları, özel smetana (ekşi krema) ile bir araya getirilir.',
-    price: 250,
+    price: 280,
     categoryId: categories.rus._id,
-    image: downloaded.medovik,
-    gallery: [downloaded['medovik-pasta-izmir-2'], downloaded['medovik-1'], downloaded['full-medovik-2'], downloaded['portakali-medovik'], downloaded['medovik-siparis']].filter(Boolean),
+    image: uploads.medovik,
+    gallery: [uploads['medovik-pasta-izmir-2'], uploads['medovik-1'], uploads['full-medovik-2'], uploads['portakali-medovik'], uploads['medovik-siparis']].filter(Boolean),
     sortOrder: 1,
   },
   {
     name: 'Spartak | Çikolatalı Medovik',
     description: 'Spartak (Ballı Cevizli Rus Pastası) Kakao ve Smetana\'lı. Çikolatalı Medovik.',
-    price: 250,
+    price: 280,
     categoryId: categories.rus._id,
-    image: downloaded.spartak,
-    gallery: [downloaded['spartak-2'], downloaded['spartak-izmir']].filter(Boolean),
+    image: uploads.spartak,
+    gallery: [uploads['spartak-2'], uploads['spartak-izmir']].filter(Boolean),
     sortOrder: 2,
   },
   {
     name: 'Napolyon Pastası – Rus Usulü Milföy Katları',
     description: 'Napolyon pastası, Rus pastacılık kültürünün en bilinen klasiklerinden biridir. Endüstriyel yöntemlerden uzak, Rus usulü çok katlı milföy hamurlarıyla hazırlanır. Diplomat krema ile dengeli şekilde buluşturulur.',
-    price: 280,
+    price: 290,
     categoryId: categories.rus._id,
-    image: downloaded.napolyon,
-    gallery: [downloaded['napolyon-izmir'], downloaded['rus-napoleon'], downloaded['napolyon-cilek']].filter(Boolean),
+    image: uploads.napolyon,
+    gallery: [uploads['napolyon-izmir'], uploads['rus-napoleon'], uploads['napolyon-cilek']].filter(Boolean),
     sortOrder: 3,
   },
   {
@@ -194,8 +259,8 @@ const items = [
     description: 'Loccake Havuçlu Ananaslı Cevizli Pasta. Mağaza Teslim Fiyatı.',
     price: 300,
     categoryId: categories.avrupa._id,
-    image: downloaded.havuclu,
-    gallery: [downloaded['havuclu-raffaello'], downloaded['dogal-kek']].filter(Boolean),
+    image: uploads.havuclu,
+    gallery: [uploads['havuclu-raffaello'], uploads['dogal-kek']].filter(Boolean),
     sortOrder: 1,
   },
   {
@@ -203,7 +268,7 @@ const items = [
     description: 'Yoğun çikolata lezzetiyle hazırlanan özel truffle pasta.',
     price: 290,
     categoryId: categories.avrupa._id,
-    image: downloaded.truffle,
+    image: uploads.truffle,
     gallery: [],
     sortOrder: 2,
   },
@@ -212,8 +277,8 @@ const items = [
     description: 'Sgushonka dolgulu Rus Kurabiyesi. Ceviz şeklinde hazırlanan geleneksel Rus tatlısı.',
     price: 310,
     categoryId: categories.kurabiye._id,
-    image: downloaded.oreshki,
-    gallery: [downloaded['oreshki-2']].filter(Boolean),
+    image: uploads.oreshki,
+    gallery: [uploads['oreshki-2']].filter(Boolean),
     sortOrder: 1,
   },
 ]
@@ -223,11 +288,75 @@ for (const item of items) {
   console.log(`  + Item: ${created.name} — ₺${created.price}`)
 }
 
+// 6. Create SEO and content settings
+console.log('\n── Creating SEO and content settings ──')
+const seoDefaults = await seoStore.getSettings()
+await SeoSettings.create(seedSeoDocument(seoDefaults))
+console.log('  + SEO settings created')
+
+const contentDefaults = await contentStore.getSettings()
+await SiteContent.create(seedContentDocument(contentDefaults))
+console.log('  + Content settings created')
+
+// 7. Create Medovik blog post
+console.log('\n── Creating blog post ──')
+const MAP_EMBED = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3125.8!2d27.144111!3d38.438194!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14bbd8e66b3a3eeb%3A0x1c3d1c8c1c4dd5e8!2sLoccake!5e0!3m2!1str!2str!4v1700000000'
+
+const medovikPost = {
+  title: 'Medovik Nedir? Tarihi, Tarifi ve İzmir Alsancak Loccake\'de Nerede Tadabilirsiniz?',
+  slug: 'medovik-nedir-tarihi-izmir-loccake',
+  excerpt: 'Medovik (ballı Rus pastası) tarihini, geleneksel hazırlık sürecini ve İzmir Alsancak\'taki Loccake cafe\'de gerçek Medovik deneyimini keşfedin. Adres, harita ve sipariş bilgileri.',
+  coverImage: uploads.medovik,
+  metaTitle: 'Medovik Nedir? Tarihi ve İzmir Alsancak Loccake\'de Tadın',
+  metaDescription: 'Medovik pastasının tarihini, geleneksel tarifini ve İzmir Alsancak Loccake\'de gerçek Rus Medovik deneyimini keşfedin. Alsancak adresi, harita ve sipariş için hemen ulaşın.',
+  metaImage: uploads.medovik,
+  robots: 'index, follow',
+  published: true,
+  publishedAt: new Date(),
+  sortOrder: 1,
+  blocks: [
+    { type: 'title', text: 'Medovik Nedir?' },
+    { type: 'subtitle', text: 'Rusya\'nın Efsanevi Ballı Pastası' },
+    { type: 'paragraph', text: 'Medovik, bal ile hazırlanan ince hamur katları ve hafif ekşi krema (smetana) ile bir araya getirilen, Rusya pastacılığının en sevilen klasiklerinden biridir. Türkiye\'de özellikle İzmir\'de arayanlar için gerçek Medovik deneyimi, geleneksel tariflere sadık kalarak hazırlanan pastanelerde mümkündür.' },
+    { type: 'image', image: uploads.medovik, imageAlt: 'Loccake Medovik — İzmir Alsancak Rus pastası' },
+    { type: 'title', text: 'Medovik\'in Tarihi' },
+    { type: 'paragraph', text: 'Medovik\'in kökeni 19. yüzyıl Rusya\'sına dayanır. Hikâyeye göre bir imparatoriçenin aşçısının bal aromalı bu pastayı ilk kez sunmasıyla ün kazanmıştır. Yıllar içinde evlerden saray mutfaklarına, oradan da günümüzün sevilen pastanelerine uzanan bir yolculuk yapmıştır.' },
+    { type: 'italic', text: 'İnce hamur katları, balın derin aroması ve dengeli krema — Medovik\'i sıradan bir pastadan ayıran üç temel unsurdur.' },
+    { type: 'paragraph', text: 'Bugün Medovik; doğum günleri, aile buluşmaları ve özel kutlamalarda Rusya ve komşu ülkelerde vazgeçilmez bir lezzettir. İzmir\'de de Rus pastası kültürünü yaşatan mekânlar, bu geleneği özenle sürdürmektedir.' },
+    { type: 'image', image: uploads['full-medovik'], imageAlt: 'Geleneksel Medovik pasta katmanları' },
+    { type: 'title', text: 'Medovik Nasıl Hazırlanır?' },
+    { type: 'subtitle', text: 'İnce Hamur Katları ve Smetana' },
+    { type: 'paragraph', text: 'Gerçek Medovik aceleye gelmez. Bal, yumurta, un ve tereyağı ile hazırlanan hamur ince ince açılır, fırınlanır ve soğumaya bırakılır. Her kat arasına özel smetana kreması sürülür; pasta bir gece dolapta dinlendirildikten sonra servis edilir. Bu süreç, hamurun kremayla yumuşamasını ve bal aromasının tüm katmanlara işlemesini sağlar.' },
+    { type: 'image', image: uploads['medovik-1'], imageAlt: 'Medovik hamur katmanları hazırlığı' },
+    { type: 'paragraph', text: 'Endüstriyel üretimde kısaltılan bu süreç, geleneksel pastanelerde hâlâ sabırla uygulanır. Loccake\'de Medovik; kat kat açılan hamur, gerçek bal ve özenle hazırlanan krema ile üretilir — İzmir Alsancak\'ta aradığınız o otantik lezzet için.' },
+    { type: 'image', image: uploads['medovik-pasta-izmir-2'], imageAlt: 'İzmir Loccake Medovik pasta' },
+    { type: 'title', text: 'Loccake\'de Gerçek Medovik Deneyimi' },
+    { type: 'paragraph', text: 'Loccake, 2018 yılından bu yana İzmir Alsancak\'ta geleneksel Rus ve Avrupa pastalarını el yapımı olarak sunmaktadır. Medovik, Spartak ve Napolyon gibi klasikler; cafe atmosferinde taze kahve eşliğinde tadılabilir ya da paket servis ile evinize götürülebilir.' },
+    { type: 'image', image: uploads['cafe-1'], imageAlt: 'Loccake cafe — Alsancak İzmir' },
+    { type: 'image', image: uploads['irina-ozgur'], imageAlt: 'Loccake ekibi ve cafe atmosferi' },
+    { type: 'paragraph', text: 'Alsancak Mahallesi 1440 Sokak 20/B adresinde, Kordon\'a yürüme mesafesinde konumlanan Loccake; hem yerli misafirler hem de Rus pastası arayan ziyaretçiler için sıcak bir durak. Medovik siparişi için 2–3 gün önceden haber vermeniz önerilir; yoğunluk durumuna göre ertesi güne yetiştirme imkânı da olabilir.' },
+    { type: 'cta', text: 'İzmir\'de gerçek Medovik tatmak için Loccake\'e bekleriz. Dilim veya bütün pasta siparişi verebilir, cafe\'mizde keyifle yiyebilirsiniz.', buttonLabel: 'Medovik Sipariş Ver', buttonHref: '/menu' },
+    { type: 'cta', text: 'Adres ve yol tarifi için iletişim sayfamızı ziyaret edin veya WhatsApp\'tan yazın.', buttonLabel: 'İletişim ve Harita', buttonHref: '/contact' },
+    { type: 'map', embedUrl: MAP_EMBED },
+    { type: 'paragraph', text: 'İzmir Alsancak Medovik, Rus pastası İzmir, Alsancak cafe ve geleneksel tatlı arayanlar için Loccake; harita üzerinden kolayca bulunabilir. Google\'da "Medovik İzmir" veya "Alsancak Rus pastası" arayanlar için gerçek lezzet, gerçek adres.' },
+  ],
+}
+
+await BlogPost.findOneAndUpdate(
+  { slug: medovikPost.slug },
+  medovikPost,
+  { upsert: true, returnDocument: 'after', setDefaultsOnInsert: true },
+)
+console.log(`  + Blog post: ${medovikPost.title}`)
+
 // Done
 console.log('\n======================================')
 console.log('  Seed completed successfully!')
 console.log(`  Categories: ${await Category.countDocuments()}`)
 console.log(`  Items: ${await MenuItem.countDocuments()}`)
+console.log(`  SEO Settings: ${await SeoSettings.countDocuments()}`)
+console.log(`  Content Settings: ${await SiteContent.countDocuments()}`)
+console.log(`  Blog Posts: ${await BlogPost.countDocuments()}`)
 console.log(`  Admin: ${ADMIN_EMAIL} / ${ADMIN_PASSWORD}`)
 console.log('======================================\n')
 

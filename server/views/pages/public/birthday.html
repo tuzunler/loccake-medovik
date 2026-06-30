@@ -1,9 +1,9 @@
 <!-- PAGE HEADER -->
-<section class="page-header" style="background-image: url('/uploads/seed-birthday-1.jpeg');">
+<section class="page-header" style="background-image: url('[= content.headerImage]');" role="img" aria-label="[= content.headerImageAlt]">
   <div class="page-header__overlay"></div>
   <div class="container page-header__content">
-    <h1>Doğum Günü Partileri</h1>
-    <p>Unutulmaz anlar, sıcacık ortam</p>
+    <h1>[= content.headerTitle]</h1>
+    <p>[= content.headerSubtitle]</p>
   </div>
 </section>
 
@@ -11,20 +11,16 @@
 <section class="section">
   <div class="container">
     <div class="content-block content-block--center">
-      <span class="section-tag">Kutlama</span>
-      <h2 class="section-title">Yeni Yaşınıza Loccake'de Girmek İster misiniz?</h2>
+      <span class="section-tag">[= content.introTag]</span>
+      <h2 class="section-title">[= content.introTitle]</h2>
       <p class="content-block__text">
-        Unutulmaz anlarınızda yanınızda olmak bizim için büyük mutluluk. Doğum günlerinizi dilerseniz 
-        Loccake atmosferinde kutlayabilirsiniz.
+        [= content.introText1]
       </p>
       <p class="content-block__text">
-        Doğum günü pastası, Cupcake, Muffin, şekerlemeler ve daha birçok özel lezzeti kendimiz 
-        hazırlıyoruz. Tamamen doğal ve şeker hamursuz.
+        [= content.introText2]
       </p>
       <p class="content-block__text">
-        Dilerseniz balon, süsleme, Candy Bar ve parti dekor hizmetleri de sağlıyoruz. İsterseniz 
-        tamamen spontane gelişen, bir dilim pasta ve tek mum ile kutlayacağınız bir doğum günü olsun. 
-        Ya da sevdiklerinizle kutlayacağınız kalabalık bir doğum günü partisi olsun — biz her zaman yanınızdayız.
+        [= content.introText3]
       </p>
     </div>
   </div>
@@ -34,16 +30,16 @@
 <section class="section" style="background: var(--color-warm);">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Galeri</span>
-      <h2 class="section-title">Partilerden Kareler</h2>
+      <span class="section-tag">[= content.galleryTag]</span>
+      <h2 class="section-title">[= content.galleryTitle]</h2>
     </div>
     <div class="gallery-grid">
-      <img src="/uploads/seed-birthday-1.jpeg" alt="Doğum günü partisi" loading="lazy">
-      <img src="/uploads/seed-birthday-2.jpeg" alt="Doğum günü partisi" loading="lazy">
-      <img src="/uploads/seed-birthday-3.jpeg" alt="Doğum günü partisi" loading="lazy">
-      <img src="/uploads/seed-birthday-4.jpeg" alt="Doğum günü kutlaması" loading="lazy">
-      <img src="/uploads/seed-birthday-5.jpeg" alt="Doğum günü kutlaması" loading="lazy">
-      <img src="/uploads/seed-birthday-6.jpeg" alt="Doğum günü kutlaması" loading="lazy">
+      <img src="[= content.gallery1Image]" alt="[= content.gallery1Alt]" loading="lazy">
+      <img src="[= content.gallery2Image]" alt="[= content.gallery2Alt]" loading="lazy">
+      <img src="[= content.gallery3Image]" alt="[= content.gallery3Alt]" loading="lazy">
+      <img src="[= content.gallery4Image]" alt="[= content.gallery4Alt]" loading="lazy">
+      <img src="[= content.gallery5Image]" alt="[= content.gallery5Alt]" loading="lazy">
+      <img src="[= content.gallery6Image]" alt="[= content.gallery6Alt]" loading="lazy">
     </div>
   </div>
 </section>
@@ -52,14 +48,13 @@
 <section class="section">
   <div class="container">
     <div class="content-block content-block--center">
-      <h2 class="section-title">Hadi Kutlayalım!</h2>
+      <h2 class="section-title">[= content.ctaTitle]</h2>
       <p class="content-block__text">
-        Doğum günü organizasyonunuz için bizi arayabilir veya WhatsApp'tan yazabilirsiniz. 
-        Birlikte harika bir kutlama planlayalım.
+        [= content.ctaText]
       </p>
       <div class="content-block__actions">
-        <a href="https://wa.me/905558937078?text=Merhaba,%20doğum%20günü%20organizasyonu%20hakkında%20bilgi%20almak%20istiyorum" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp ile Yazın</a>
-        <a href="tel:+905558937078" class="btn btn--outline btn--lg">0555 893 70 78</a>
+        <a href="[= content.whatsappHref]" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">[= content.whatsappButton]</a>
+        <a href="[= content.phoneHref]" class="btn btn--outline btn--lg">[= content.phoneButton]</a>
       </div>
     </div>
   </div>

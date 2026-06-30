@@ -1,9 +1,9 @@
 <!-- PAGE HEADER -->
-<section class="page-header" style="background-image: url('/uploads/seed-cafe-1.jpeg');">
+<section class="page-header" style="background-image: url('[= content.headerImage]');" role="img" aria-label="[= content.headerImageAlt]">
   <div class="page-header__overlay"></div>
   <div class="container page-header__content">
-    <h1>Neler Yapıyoruz?</h1>
-    <p>Gerçek tatlar — Rus ve dünya lezzetleri</p>
+    <h1>[= content.headerTitle]</h1>
+    <p>[= content.headerSubtitle]</p>
   </div>
 </section>
 
@@ -12,18 +12,20 @@
   <div class="container">
     <div class="about-grid">
       <div class="about-content">
-        <span class="section-tag">Lezzetler</span>
-        <h2 class="section-title">Loccake Rus Pastaları ve Tatlıları</h2>
-        <p>Sadece kaliteli ve lezzetli olmak dışında bir özelliğimiz daha var: <strong>Özgün olmak.</strong></p>
-        <p>Sadece Loccake'de bulabileceğiniz Rus Pastalarının benzersiz tatları, pasta algınızı tamamen değiştirecek.</p>
-        <p>Medovik, Napolyon, Spartak, Oreshki başta olmak üzere Rus pastalarını yerken 
-        kendinizi Moskova'da Tverskaya Bulvarında bir kafede oturmuş pastanızı yiyormuş gibi hissedeceksiniz.</p>
-        <p>Cafemizde enfes kahveler eşliğinde pastalarınızı yedikten sonra dilerseniz 
-        paket servis hizmetimiz ile sevdiklerinize de dilim veya bütün olarak pastalarımızdan götürebilirsiniz.</p>
-        <a href="/menu" class="btn btn--primary" style="margin-top: 12px;">Ürünleri Keşfet</a>
+        <span class="section-tag">[= content.pastriesTag]</span>
+        <h2 class="section-title">[= content.pastriesTitle]</h2>
+        <p>[= content.pastriesText1]</p>
+        <p>[= content.pastriesText2]</p>
+        <p>[= content.pastriesText3]</p>
+        <p>[= content.pastriesText4]</p>
+        <a href="/menu" class="btn btn--primary" style="margin-top: 12px;">[= content.pastriesButton]</a>
       </div>
       <div class="about-image">
-        <img src="/uploads/seed-medovik.jpg" alt="Medovik Rus Pastası" loading="lazy">
+        [# if featuredCategory && featuredCategory.image]
+        <img src="[= featuredCategory.image]" alt="[= featuredCategory.name]" loading="lazy">
+        [# else]
+        <img src="/uploads/seed-medovik.jpg" alt="Rus Pastaları" loading="lazy">
+        [/if]
       </div>
     </div>
   </div>
@@ -33,31 +35,19 @@
 <section class="section" style="background: var(--color-warm);">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Ürün Çeşitlerimiz</span>
-      <h2 class="section-title">Neler Hazırlıyoruz?</h2>
+      <span class="section-tag">[= content.categoriesTag]</span>
+      <h2 class="section-title">[= content.categoriesTitle]</h2>
     </div>
     <div class="features-grid">
+      [# each categories as cat]
       <div class="feature-card">
         <div class="feature-card__icon">
           <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5c0 .5-.1 1-.2 1.5h2.7a1.5 1.5 0 0 1 0 3h-.3L18 20a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2l-1.2-8.5h-.3a1.5 1.5 0 0 1 0-3h2.7A5 5 0 0 1 7 7a5 5 0 0 1 5-5z"/></svg>
         </div>
-        <h3>Pastalar</h3>
-        <p>Rus Pastaları Medovik ve Napolyon, çikolatalı ve meyveli pastalar, doğum günü pastaları. Hepsi özenle Loccake kalitesiyle hazırlanıyor.</p>
+        <h3>[= cat.name]</h3>
+        <p>[= cat.description]</p>
       </div>
-      <div class="feature-card">
-        <div class="feature-card__icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12c0-2.2 1.8-4 4-4"/><circle cx="12" cy="12" r="1"/></svg>
-        </div>
-        <h3>Kurabiyeler</h3>
-        <p>Zencefilli kurabiye ve içi dolgulu Rus kurabiyelerimiz başta olmak üzere birbirinden farklı lezzette ve şekle sahip kurabiyelerimiz.</p>
-      </div>
-      <div class="feature-card">
-        <div class="feature-card__icon">
-          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
-        </div>
-        <h3>Cafe</h3>
-        <p>Enfes kahveler, sıcak ve soğuk içecekler. Pastalarımızın yanında en iyi eşlikçi.</p>
-      </div>
+      [/each]
     </div>
   </div>
 </section>
@@ -67,21 +57,16 @@
   <div class="container">
     <div class="about-grid about-grid--reverse">
       <div class="about-image">
-        <img src="/uploads/seed-cafe-2.jpeg" alt="Loccake Cafe" loading="lazy">
+        <img src="[= content.cafeImage]" alt="[= content.cafeImageAlt]" loading="lazy">
       </div>
       <div class="about-content">
-        <span class="section-tag">Mekan</span>
-        <h2 class="section-title">Loccake Cafe</h2>
-        <p>Kaliteli vakit geçirmek herkesin hakkı! Bazen dostlarınızla hoş sohbetlerinizde, 
-        bazen de iş buluşmalarınızda ya da tek başınıza kaliteli zaman geçirmek istediğinizde 
-        Alsancak'daki eviniz Loccake.</p>
-        <p>Huzurlu bir atmosfer, içinizi açacak bir iç tasarım, enfes kahve ve tatlılar ile 
-        zamanın nasıl geçtiğini anlamayacaksınız.</p>
-        <p>"Sosyal Masamızda" tek başınıza ya da grup olarak ders çalışabilirsiniz. 
-        Sunumlarınızı gerçekleştirmek için geniş bir ortam sunuyoruz.</p>
-        <p>Alsancak'ın ve doğal olarak İzmir'in tam merkezindeyiz. Ama bir o kadar da 
-        gürültüsünün, karmaşasının uzağındayız.</p>
-        <a href="/contact" class="btn btn--outline" style="margin-top: 12px;">Nasıl Ulaşırım?</a>
+        <span class="section-tag">[= content.cafeTag]</span>
+        <h2 class="section-title">[= content.cafeTitle]</h2>
+        <p>[= content.cafeText1]</p>
+        <p>[= content.cafeText2]</p>
+        <p>[= content.cafeText3]</p>
+        <p>[= content.cafeText4]</p>
+        <a href="/contact" class="btn btn--outline" style="margin-top: 12px;">[= content.cafeButton]</a>
       </div>
     </div>
   </div>
@@ -91,16 +76,16 @@
 <section class="section" style="background: var(--color-warm);">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Mekanımız</span>
-      <h2 class="section-title">Cafe'den Kareler</h2>
+      <span class="section-tag">[= content.galleryTag]</span>
+      <h2 class="section-title">[= content.galleryTitle]</h2>
     </div>
     <div class="gallery-grid">
-      <img src="/uploads/seed-cafe-1.jpeg" alt="Loccake Cafe" loading="lazy">
-      <img src="/uploads/seed-cafe-2.jpeg" alt="Loccake Cafe" loading="lazy">
-      <img src="/uploads/seed-cafe-3.jpeg" alt="Loccake Cafe" loading="lazy">
-      <img src="/uploads/seed-cafe-4.jpeg" alt="Loccake Cafe" loading="lazy">
-      <img src="/uploads/seed-cafe-5.jpeg" alt="Loccake Cafe" loading="lazy">
-      <img src="/uploads/seed-cafe-6.jpeg" alt="Loccake Cafe" loading="lazy">
+      <img src="[= content.gallery1Image]" alt="[= content.gallery1Alt]" loading="lazy">
+      <img src="[= content.gallery2Image]" alt="[= content.gallery2Alt]" loading="lazy">
+      <img src="[= content.gallery3Image]" alt="[= content.gallery3Alt]" loading="lazy">
+      <img src="[= content.gallery4Image]" alt="[= content.gallery4Alt]" loading="lazy">
+      <img src="[= content.gallery5Image]" alt="[= content.gallery5Alt]" loading="lazy">
+      <img src="[= content.gallery6Image]" alt="[= content.gallery6Alt]" loading="lazy">
     </div>
   </div>
 </section>
@@ -109,22 +94,19 @@
 <section class="section">
   <div class="container">
     <div class="content-block content-block--center">
-      <span class="section-tag">Hikaye</span>
-      <h2 class="section-title">Location Cake</h2>
+      <span class="section-tag">[= content.storyTag]</span>
+      <h2 class="section-title">[= content.storyTitle]</h2>
       <p class="content-block__text">
-        Loccake; <strong>Location</strong> ve <strong>Cake</strong> kelimelerinin birleşiminden meydana geliyor. 
-        Bir nevi "pasta mekanı" da diyebiliriz.
+        [= content.storyText1]
       </p>
       <p class="content-block__text">
-        Amacımız dostlarımızın belki doğum günlerinde, yılbaşında, sevgililer gününde ya da 
-        belki de sadece bir kahve içerken bu mekana uğramaları ve o güzel anlarına Loccake'i de dahil etmeleri.
+        [= content.storyText2]
       </p>
       <p class="content-block__text">
-        Bizi arayabilirsiniz ya da WhatsApp'tan yazabilirsiniz. Böylelikle karşılıklı konuşarak 
-        nasıl bir lezzette buluşacağımıza karar verebiliriz.
+        [= content.storyText3]
       </p>
       <div class="content-block__actions">
-        <a href="/contact" class="btn btn--primary btn--lg">İletişime Geçin</a>
+        <a href="/contact" class="btn btn--primary btn--lg">[= content.storyButton]</a>
       </div>
     </div>
   </div>

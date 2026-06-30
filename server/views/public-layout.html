@@ -3,22 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>[# if title][= title] — [/if]Loccake</title>
+  <title>[# if seo && seo.title][= seo.title][# else][# if title][= title] — [/if][= layoutContent.brandName][/if]</title>
+  [# if seo && seo.description]<meta name="description" content="[= seo.description]">[/if]
+  [# if seo && seo.robots]<meta name="robots" content="[= seo.robots]">[/if]
+  [# if seo && seo.canonical]<link rel="canonical" href="[= seo.canonical]">[/if]
+  <meta name="theme-color" content="#b88a44">
+  [# if seo && seo.title]<meta property="og:title" content="[= seo.title]">[/if]
+  [# if seo && seo.description]<meta property="og:description" content="[= seo.description]">[/if]
+  [# if seo && seo.canonical]<meta property="og:url" content="[= seo.canonical]">[/if]
+  [# if seo && seo.type]<meta property="og:type" content="[= seo.type]">[/if]
+  [# if seo && seo.image]<meta property="og:image" content="[= seo.image]">[/if]
+  <meta property="og:site_name" content="[= layoutContent.brandName]">
+  <meta property="og:locale" content="tr_TR">
+  <meta name="twitter:card" content="summary_large_image">
+  [# if seo && seo.title]<meta name="twitter:title" content="[= seo.title]">[/if]
+  [# if seo && seo.description]<meta name="twitter:description" content="[= seo.description]">[/if]
+  [# if seo && seo.image]<meta name="twitter:image" content="[= seo.image]">[/if]
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/styles.css">
+  [# if seo && seo.schema]<script type="application/ld+json">[= raw(seo.schema)]</script>[/if]
   [= raw(styles)]
 </head>
 <body>
 
-  [> partials/public-navbar { page: page, navbarClass: navbarClass }]
+  [> partials/public-navbar { page: page, navbarClass: navbarClass, layoutContent: layoutContent }]
 
   <div class="menu-backdrop" id="menuBackdrop"></div>
 
   [= raw(body)]
 
-  [> partials/public-footer]
+  [> partials/public-footer { layoutContent: layoutContent }]
 
   <!-- Mobile Bottom Navigation Bar -->
   <div class="mobile-bottom-nav">
@@ -26,31 +42,31 @@
       <div class="mobile-bottom-nav__icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
       </div>
-      <span>Ana Sayfa</span>
+      <span>[= layoutContent.mobileHome]</span>
     </a>
     <a href="/menu" class="mobile-bottom-nav__item [# if page === 'menu']mobile-bottom-nav__item--active[/if]">
       <div class="mobile-bottom-nav__icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5c0 .5-.1 1-.2 1.5h2.7a1.5 1.5 0 0 1 0 3h-.3L18 20a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2l-1.2-8.5h-.3a1.5 1.5 0 0 1 0-3h2.7A5 5 0 0 1 7 7a5 5 0 0 1 5-5z"></path></svg>
       </div>
-      <span>Ürünler</span>
+      <span>[= layoutContent.mobileMenu]</span>
     </a>
     <a href="#" class="mobile-bottom-nav__item nav-link--ara-trigger">
       <div class="mobile-bottom-nav__icon mobile-bottom-nav__icon--ara">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.7 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
       </div>
-      <span>Ara</span>
+      <span>[= layoutContent.mobileCall]</span>
     </a>
-    <a href="https://wa.me/905558937078?text=Merhaba,%20bilgi%20almak%20istiyorum" target="_blank" rel="noopener" class="mobile-bottom-nav__item mobile-bottom-nav__item--whatsapp">
+    <a href="[= layoutContent.whatsappHref]" target="_blank" rel="noopener" class="mobile-bottom-nav__item mobile-bottom-nav__item--whatsapp">
       <div class="mobile-bottom-nav__icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
       </div>
-      <span>WhatsApp</span>
+      <span>[= layoutContent.mobileWhatsapp]</span>
     </a>
     <a href="/contact" class="mobile-bottom-nav__item [# if page === 'contact']mobile-bottom-nav__item--active[/if]">
       <div class="mobile-bottom-nav__icon">
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
       </div>
-      <span>İletişim</span>
+      <span>[= layoutContent.mobileContact]</span>
     </a>
   </div>
 
@@ -58,31 +74,31 @@
   <div class="ara-modal" id="araModal" aria-hidden="true">
     <div class="ara-modal__backdrop" id="araModalBackdrop"></div>
     <div class="ara-modal__content">
-      <button class="ara-modal__close" id="araModalClose" aria-label="Kapat">
+      <button class="ara-modal__close" id="araModalClose" aria-label="[= layoutContent.modalCloseLabel]">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
       <div class="ara-modal__header">
         <div class="ara-modal__icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--color-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.7 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
         </div>
-        <h3>Loccake İletişim</h3>
+        <h3>[= layoutContent.modalTitle]</h3>
       </div>
       <div class="ara-modal__body">
         <div class="ara-modal__item">
-          <strong><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Konum / Adres</strong>
-          <p>Alsancak Mahallesi 1440 Sokak 20/B<br>Konak, İzmir, Türkiye</p>
-          <a href="https://maps.google.com/maps?daddr=Alsancak+Mahallesi+1440+Sokak+20%2FB+Konak+%C4%B0zmir+Turkey" class="btn btn--outline btn--sm btn--block" target="_blank" rel="noopener">
+          <strong><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> [= layoutContent.modalAddressLabel]</strong>
+          <p>[# each layoutContent.modalAddressTextLines as line][= line]<br>[/each]</p>
+          <a href="[= layoutContent.modalMapHref]" class="btn btn--outline btn--sm btn--block" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line></svg>
-            Yol Tarifi Al (Google Maps)
+            [= layoutContent.modalMapButton]
           </a>
         </div>
         <div class="ara-modal__divider"></div>
         <div class="ara-modal__item">
-          <strong><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.7 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> Telefon Numarası</strong>
-          <p><a href="tel:+905558937078" class="ara-modal__phone-link">0555 893 70 78</a></p>
-          <a href="tel:+905558937078" class="btn btn--primary btn--sm btn--block">
+          <strong><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.7 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg> [= layoutContent.modalPhoneLabel]</strong>
+          <p><a href="[= layoutContent.modalPhoneHref]" class="ara-modal__phone-link">[= layoutContent.modalPhoneText]</a></p>
+          <a href="[= layoutContent.modalPhoneHref]" class="btn btn--primary btn--sm btn--block">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.7 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-            Hemen Ara
+            [= layoutContent.modalPhoneButton]
           </a>
         </div>
       </div>

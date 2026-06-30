@@ -1,0 +1,38 @@
+<div class="admin-layout">
+  [> partials/admin-sidebar]
+  <main class="admin-main">
+    <div class="admin-header">
+      <div>
+        <h1>Content</h1>
+        <p class="text-muted">Choose a public page and edit only its fixed content.</p>
+      </div>
+      <a href="/" class="btn btn-outline" target="_blank" rel="noopener">View Site</a>
+    </div>
+
+    <div class="card">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Page</th>
+            <th>Content Scope</th>
+            <th>Fields</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          [# each pages as page]
+          <tr>
+            <td><a href="/admin/content/[= page.key]" class="table-title-link">[= page.label]</a></td>
+            <td class="text-muted">[# if page.key === 'layout']Navigation, footer and shared public UI[# else]Fixed content for this public page[/if]</td>
+            <td><span class="badge badge-category">[= page.fields.length] fields</span></td>
+            <td class="actions">
+              <a href="/admin/content/[= page.key]" class="btn btn-small btn-outline">Edit Content</a>
+              <a href="[# if page.key === 'home']/[# else][# if page.key === 'layout']/[# else][# if page.key === 'item']/menu[# else]/[= page.key][/if][/if][/if]" class="btn btn-small btn-outline" target="_blank" rel="noopener">View Page</a>
+            </td>
+          </tr>
+          [/each]
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>

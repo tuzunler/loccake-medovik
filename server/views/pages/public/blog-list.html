@@ -1,0 +1,42 @@
+<!-- PAGE HEADER -->
+<section class="page-header" style="background-image: url('[= content.headerImage]');" role="img" aria-label="[= content.headerImageAlt]">
+  <div class="page-header__overlay"></div>
+  <div class="container page-header__content">
+    <h1>[= content.headerTitle]</h1>
+    <p>[= content.headerSubtitle]</p>
+  </div>
+</section>
+
+<section class="section blog-list-section">
+  <div class="container">
+    [# if posts.length]
+      <div class="blog-grid">
+        [# each posts as post]
+          <article class="blog-card">
+            <a href="/blog/[= post.slug]" class="blog-card__image-wrap">
+              [# if post.coverImage]
+                <img src="[= post.coverImage]" alt="[= post.title]" loading="lazy">
+              [# else]
+                <div class="blog-card__placeholder">Loccake Blog</div>
+              [/if]
+            </a>
+            <div class="blog-card__body">
+              [# if post.publishedAtFormatted]
+                <time class="blog-card__date" datetime="[= post.publishedAtIso]">[= post.publishedAtFormatted]</time>
+              [/if]
+              <h2 class="blog-card__title"><a href="/blog/[= post.slug]">[= post.title]</a></h2>
+              [# if post.excerpt]
+                <p class="blog-card__excerpt">[= post.excerpt]</p>
+              [/if]
+              <a href="/blog/[= post.slug]" class="blog-card__link">Devamını oku →</a>
+            </div>
+          </article>
+        [/each]
+      </div>
+    [# else]
+      <div class="empty-state-box">
+        <p>Henüz blog yazısı yayınlanmadı.</p>
+      </div>
+    [/if]
+  </div>
+</section>

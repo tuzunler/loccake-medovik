@@ -1,0 +1,283 @@
+<div class="admin-layout">
+  [> partials/admin-sidebar]
+  <main class="admin-main">
+    <div class="admin-header">
+      <h1>[# if isEdit]Edit Post[# else]New Post[/if]</h1>
+      <a href="/admin/blog" class="btn btn-outline">← Back</a>
+    </div>
+
+    <div class="card">
+      <form method="POST" action="[# if isEdit]/admin/blog/[= post._id]/edit[# else]/admin/blog/create[/if]" class="admin-form blog-form" enctype="multipart/form-data" id="blogForm">
+        [= raw(csrfField)]
+        <textarea id="blocksJson" name="blocksJson" hidden>[= blocksJson]</textarea>
+
+        <div class="form-section">
+          <h2 class="form-section__title">Post details</h2>
+
+          <div class="form-group">
+            <label for="title">Title *</label>
+            <input type="text" id="title" name="title" required minlength="2" maxlength="200"
+              value="[# if isEdit][= post.title][/if]" placeholder="Article title">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group form-group-wide">
+              <label for="slug">URL slug</label>
+              <input type="text" id="slug" name="slug" maxlength="180"
+                value="[# if isEdit][= post.slug][/if]" placeholder="auto-generated-from-title">
+              <small class="form-hint">Public URL: /blog/your-slug</small>
+            </div>
+            <div class="form-group">
+              <label for="sortOrder">Sort order</label>
+              <input type="number" id="sortOrder" name="sortOrder" step="1"
+                value="[# if isEdit][= post.sortOrder][# else]0[/if]">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="excerpt">Excerpt</label>
+            <textarea id="excerpt" name="excerpt" rows="3" maxlength="500" placeholder="Short summary for blog listing and SEO">[# if isEdit][= post.excerpt][/if]</textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="coverImage">Cover image</label>
+            <input type="file" id="coverImage" name="coverImage" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,image/svg+xml,image/avif" class="file-input">
+            [# if isEdit]
+              [# if post.coverImage]
+                <div class="form-preview">
+                  <img src="[= post.coverImage]" alt="Cover preview">
+                  <span class="preview-label">Current cover</span>
+                </div>
+              [/if]
+            [/if]
+          </div>
+
+          <div class="form-group form-group--checkbox">
+            <label class="checkbox-label">
+              <input type="checkbox" name="published" value="true" [# if isEdit][# if post.published]checked[/if][# else]checked[/if]>
+              <span>Published</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="form-section">
+          <div class="form-section__header">
+            <h2 class="form-section__title">Content blocks</h2>
+            <div class="block-toolbar">
+              <button type="button" class="btn btn-small btn-outline" data-add-block="title">+ Title</button>
+              <button type="button" class="btn btn-small btn-outline" data-add-block="subtitle">+ Subtitle</button>
+              <button type="button" class="btn btn-small btn-outline" data-add-block="paragraph">+ Text</button>
+              <button type="button" class="btn btn-small btn-outline" data-add-block="italic">+ Italic</button>
+              <button type="button" class="btn btn-small btn-outline" data-add-block="image">+ Image</button>
+              <button type="button" class="btn btn-small btn-outline" data-add-block="map">+ Map</button>
+              <button type="button" class="btn btn-small btn-outline" data-add-block="cta">+ CTA</button>
+            </div>
+          </div>
+          <p class="form-hint">Build the article with blocks. Use titles for main sections, subtitles for subsections, italic for emphasis, images for photos, map for Google Maps embed, and CTA for call-to-action buttons.</p>
+          <div id="blocksEditor" class="blocks-editor"></div>
+        </div>
+
+        <div class="form-section">
+          <h2 class="form-section__title">SEO</h2>
+
+          <div class="form-group">
+            <label for="metaTitle">Meta title</label>
+            <input type="text" id="metaTitle" name="metaTitle" maxlength="200"
+              value="[# if isEdit][= post.metaTitle][/if]" placeholder="Leave empty to use post title">
+          </div>
+
+          <div class="form-group">
+            <label for="metaDescription">Meta description</label>
+            <textarea id="metaDescription" name="metaDescription" rows="3" maxlength="320" placeholder="Search engine description">[# if isEdit][= post.metaDescription][/if]</textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group form-group-wide">
+              <label for="metaImage">Social / OG image</label>
+              <input type="file" id="metaImage" name="metaImage" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,image/svg+xml,image/avif" class="file-input">
+              [# if isEdit]
+                [# if post.metaImage]
+                  <div class="form-preview">
+                    <img src="[= post.metaImage]" alt="Meta image preview">
+                    <span class="preview-label">Current OG image</span>
+                  </div>
+                [/if]
+              [/if]
+            </div>
+            <div class="form-group">
+              <label for="robots">Robots</label>
+              <input type="text" id="robots" name="robots"
+                value="[# if isEdit][= post.robots][# else]index, follow[/if]">
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">[# if isEdit]Save changes[# else]Create post[/if]</button>
+          <a href="/admin/blog" class="btn btn-outline">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+</div>
+
+<script>
+(function () {
+  const BLOCK_LABELS = {
+    title: 'Main title',
+    subtitle: 'Subtitle',
+    paragraph: 'Paragraph',
+    italic: 'Italic text',
+    image: 'Image',
+    map: 'Google Map',
+    cta: 'Call to action',
+  }
+
+  const editor = document.getElementById('blocksEditor')
+  const hiddenInput = document.getElementById('blocksJson')
+  const form = document.getElementById('blogForm')
+  let blocks = []
+
+  try {
+    blocks = JSON.parse(hiddenInput.value || '[]')
+    if (!Array.isArray(blocks)) blocks = []
+  } catch {
+    blocks = []
+  }
+
+  function emptyBlock(type) {
+    return { type, text: '', image: '', imageAlt: '', embedUrl: '', buttonLabel: '', buttonHref: '' }
+  }
+
+  function escapeHtml(value) {
+    return String(value || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+  }
+
+  function render() {
+    editor.innerHTML = blocks.map((block, index) => {
+      const label = BLOCK_LABELS[block.type] || block.type
+      let fields = ''
+
+      if (block.type === 'title' || block.type === 'subtitle' || block.type === 'paragraph' || block.type === 'italic') {
+        const tag = block.type === 'paragraph' ? 'textarea' : 'input'
+        const rows = block.type === 'paragraph' ? ' rows="4"' : ''
+        const inputType = tag === 'input' ? ' type="text"' : ''
+        fields = `<${tag}${inputType}${rows} class="block-field" data-field="text" data-index="${index}" placeholder="${label}">${tag === 'textarea' ? escapeHtml(block.text) : ''}</${tag}>`
+        if (tag === 'input') {
+          fields = `<input type="text" class="block-field" data-field="text" data-index="${index}" value="${escapeHtml(block.text)}" placeholder="${label}">`
+        }
+      }
+
+      if (block.type === 'image') {
+        fields = `
+          <input type="file" name="blockImage_${index}" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,image/svg+xml,image/avif" class="file-input">
+          <input type="text" class="block-field" data-field="imageAlt" data-index="${index}" value="${escapeHtml(block.imageAlt)}" placeholder="Image alt text">
+          ${block.image ? `<div class="form-preview"><img src="${escapeHtml(block.image)}" alt=""><span class="preview-label">Current image</span></div>` : ''}
+        `
+      }
+
+      if (block.type === 'map') {
+        fields = `<input type="url" class="block-field" data-field="embedUrl" data-index="${index}" value="${escapeHtml(block.embedUrl)}" placeholder="Google Maps embed URL">`
+      }
+
+      if (block.type === 'cta') {
+        fields = `
+          <textarea class="block-field" data-field="text" data-index="${index}" rows="3" placeholder="CTA text">${escapeHtml(block.text)}</textarea>
+          <input type="text" class="block-field" data-field="buttonLabel" data-index="${index}" value="${escapeHtml(block.buttonLabel)}" placeholder="Button label">
+          <input type="text" class="block-field" data-field="buttonHref" data-index="${index}" value="${escapeHtml(block.buttonHref)}" placeholder="Button link (e.g. /menu or https://...)">
+        `
+      }
+
+      return `
+        <div class="block-card" data-index="${index}">
+          <div class="block-card__header">
+            <span class="block-card__type">${label}</span>
+            <div class="block-card__actions">
+              <button type="button" class="btn btn-small btn-outline" data-move-up="${index}" ${index === 0 ? 'disabled' : ''}>↑</button>
+              <button type="button" class="btn btn-small btn-outline" data-move-down="${index}" ${index === blocks.length - 1 ? 'disabled' : ''}>↓</button>
+              <button type="button" class="btn btn-small btn-danger" data-remove-block="${index}">Remove</button>
+            </div>
+          </div>
+          <div class="block-card__body">${fields}</div>
+        </div>
+      `
+    }).join('')
+
+    if (!blocks.length) {
+      editor.innerHTML = '<div class="blocks-editor__empty">No blocks yet. Add a title, text, or image block above.</div>'
+    }
+  }
+
+  function syncFromDom() {
+    editor.querySelectorAll('.block-field').forEach(field => {
+      const index = Number(field.dataset.index)
+      const key = field.dataset.field
+      if (!blocks[index] || !key) return
+      blocks[index][key] = field.value
+    })
+    hiddenInput.value = JSON.stringify(blocks)
+  }
+
+  editor.addEventListener('input', (event) => {
+    if (!event.target.classList.contains('block-field')) return
+    syncFromDom()
+  })
+
+  editor.addEventListener('click', (event) => {
+    const addType = event.target.dataset.addBlock
+    if (addType) {
+      blocks.push(emptyBlock(addType))
+      render()
+      syncFromDom()
+      return
+    }
+
+    const removeIndex = event.target.dataset.removeBlock
+    if (removeIndex !== undefined) {
+      blocks.splice(Number(removeIndex), 1)
+      render()
+      syncFromDom()
+      return
+    }
+
+    const moveUp = event.target.dataset.moveUp
+    if (moveUp !== undefined) {
+      const index = Number(moveUp)
+      if (index > 0) {
+        ;[blocks[index - 1], blocks[index]] = [blocks[index], blocks[index - 1]]
+        render()
+        syncFromDom()
+      }
+      return
+    }
+
+    const moveDown = event.target.dataset.moveDown
+    if (moveDown !== undefined) {
+      const index = Number(moveDown)
+      if (index < blocks.length - 1) {
+        ;[blocks[index + 1], blocks[index]] = [blocks[index], blocks[index + 1]]
+        render()
+        syncFromDom()
+      }
+    }
+  })
+
+  document.querySelectorAll('[data-add-block]').forEach(button => {
+    button.addEventListener('click', () => {
+      blocks.push(emptyBlock(button.dataset.addBlock))
+      render()
+      syncFromDom()
+    })
+  })
+
+  form.addEventListener('submit', () => {
+    syncFromDom()
+  })
+
+  render()
+})()
+</script>

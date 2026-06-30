@@ -1,7 +1,7 @@
 export default {
   name: 'admin-categories',
   prefix: '/admin/categories',
-  pipe: ['cookieAuth', 'admin', 'csrf'],
+  pipe: ['rateLimit:120', 'cookieAuth', 'admin', 'csrf'],
 
   routes: [
     ['GET',  '',              'categoryList'],

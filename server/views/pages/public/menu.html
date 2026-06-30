@@ -1,9 +1,9 @@
 <!-- PAGE HEADER -->
-<section class="page-header" style="background-image: url('/uploads/seed-medovik-pasta-izmir.jpg');">
+<section class="page-header" style="background-image: url('[= content.headerImage]');" role="img" aria-label="[= content.headerImageAlt]">
   <div class="page-header__overlay"></div>
   <div class="container page-header__content">
-    <h1>Ürünlerimiz</h1>
-    <p>Geleneksel Rus ve Avrupa pastaları, özenle hazırlanmış kurabiyeler</p>
+    <h1>[= content.headerTitle]</h1>
+    <p>[= content.headerSubtitle]</p>
   </div>
 </section>
 
@@ -41,14 +41,14 @@
 
     [# if groups.length === 0]
     <div class="content-block content-block--center">
-      <p>Henüz ürün eklenmemiştir.</p>
+      <p>[= content.emptyText]</p>
     </div>
     [/if]
 
     <!-- INFO NOTE -->
     <div class="menu-note">
-      <p>Fiyatlar mağaza teslim fiyatlarıdır. Teslimat ücreti dahil değildir.</p>
-      <p>Sipariş ve teslimat için: <a href="tel:+905558937078">0555 893 70 78</a> · <a href="https://wa.me/905558937078" target="_blank" rel="noopener" style="color: #25d366;">WhatsApp</a></p>
+      <p>[= content.noteText]</p>
+      <p>[= content.orderText] <a href="tel:+905558937078">0555 893 70 78</a> · <a href="https://wa.me/905558937078" target="_blank" rel="noopener" style="color: #25d366;">[= content.whatsappLabel]</a></p>
     </div>
 
   </div>

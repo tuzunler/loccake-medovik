@@ -3,6 +3,8 @@ export default {
   prefix: '',
 
   routes: [
+    ['GET', '/robots.txt',  'robotsPage'],
+    ['GET', '/sitemap.xml', 'sitemapPage'],
     ['GET', '',          'homePage'],
     ['GET', '/menu',     'menuPage'],
     ['GET', '/menu/:id', 'itemPage'],
@@ -11,5 +13,7 @@ export default {
     ['GET', '/delivery', 'deliveryPage'],
     ['GET', '/payment',  'paymentPage'],
     ['GET', '/birthday', 'birthdayPage'],
+    ['GET', '/blog',      'blogListPage'],
+    ['GET', '/blog/:slug', 'blogPostPage'],
   ],
 }

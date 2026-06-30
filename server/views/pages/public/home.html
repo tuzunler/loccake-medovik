@@ -1,18 +1,17 @@
 <!-- HERO -->
-<section class="hero" style="background-image: url('/uploads/seed-full-medovik.jpg');">
+<section class="hero" style="background-image: url('[= content.heroImage]');" role="img" aria-label="[= content.heroImageAlt]">
   <div class="hero__overlay"></div>
   <div class="container hero__content">
-    <div class="hero__badge">— 2018'den beri · El yapımı lezzetler —</div>
+    <div class="hero__badge">[= content.heroBadge]</div>
     <h1 class="hero__title">
-      Geleneksel Rus &<br><em>Avrupa Pastaları</em>
+      [= content.heroTitleLine1]<br><em>[= content.heroTitleEmphasis]</em>
     </h1>
     <p class="hero__desc">
-      Moskova'dan İzmir'e uzanan lezzet yolculuğu. Efsanevi Medovik'ten
-      zarif Napolyon'a, her pasta özenle ve geleneksel tariflerle hazırlanır.
+      [= content.heroDescription]
     </p>
     <div class="hero__buttons">
-      <a href="/menu" class="btn btn--primary btn--lg">Ürünleri Keşfet</a>
-      <a href="/about" class="btn btn--outline-light btn--lg">Hikayemiz</a>
+      <a href="/menu" class="btn btn--primary btn--lg">[= content.heroPrimaryButton]</a>
+      <a href="/about" class="btn btn--outline-light btn--lg">[= content.heroSecondaryButton]</a>
     </div>
   </div>
 </section>
@@ -21,9 +20,9 @@
 <section class="section products-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Ürünlerimiz</span>
-      <h2 class="section-title">Eşsiz Lezzetler</h2>
-      <p class="section-desc">Farklı kültürlere ait, özenle hazırlanan pastalarımız</p>
+      <span class="section-tag">[= content.productsTag]</span>
+      <h2 class="section-title">[= content.productsTitle]</h2>
+      <p class="section-desc">[= content.productsDescription]</p>
     </div>
     <div class="products-grid">
       [# each items as item]
@@ -47,7 +46,7 @@
       [/each]
     </div>
     <div class="section-cta">
-      <a href="/menu" class="btn btn--primary btn--lg">Tüm Ürünleri Gör →</a>
+      <a href="/menu" class="btn btn--primary btn--lg">[= content.productsButton]</a>
     </div>
   </div>
 </section>
@@ -56,21 +55,18 @@
 <section class="section about-section" id="about">
   <div class="container about-grid">
     <div class="about-image">
-      <img src="/uploads/seed-irina-ozgur.jpg" alt="Loccake hakkında" loading="lazy">
+      <img src="[= content.aboutImage]" alt="[= content.aboutImageAlt]" loading="lazy">
     </div>
     <div class="about-content">
-      <span class="section-tag">Hakkımızda</span>
-      <h2 class="section-title">Loccake Ailesi</h2>
+      <span class="section-tag">[= content.aboutTag]</span>
+      <h2 class="section-title">[= content.aboutTitle]</h2>
       <p>
-        Moskova'da başlayan lezzet yolculuğu İzmir'de devam ediyor.
-        Loccake ilk defa 2018 yılında Alsancak'da kapılarını açtı.
+        [= content.aboutText1]
       </p>
       <p>
-        Rusya'nın o büyülü pastalarını, enfes lezzetlerini geleneksel
-        usuller ve malzemeler ile sizler için üretiyoruz. Her pasta,
-        sevgiyle ve özenle hazırlanır.
+        [= content.aboutText2]
       </p>
-      <a href="/about" class="btn btn--primary">Daha Fazlasını Keşfedin</a>
+      <a href="/about" class="btn btn--primary">[= content.aboutButton]</a>
     </div>
   </div>
 </section>
@@ -79,24 +75,24 @@
 <section class="section reviews-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Müşteri Yorumları</span>
-      <h2 class="section-title">Misafirlerimiz Ne Diyor?</h2>
+      <span class="section-tag">[= content.reviewsTag]</span>
+      <h2 class="section-title">[= content.reviewsTitle]</h2>
     </div>
     <div class="reviews-grid">
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p>"Medovik ve Spartak'a bayıldım... çok çok güzeldi. Böyle tadı yalnız Rusya'da yiyebilirsiniz."</p>
-        <span class="review-author">— Nur Hanım</span>
+        <p>"[= content.review1Text]"</p>
+        <span class="review-author">— [= content.review1Author]</span>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p>"Tatlıları çok güzel, kahveleri de öyle. Serviste güler yüzlü, çok güzel insanlar."</p>
-        <span class="review-author">— Görkem K.</span>
+        <p>"[= content.review2Text]"</p>
+        <span class="review-author">— [= content.review2Author]</span>
       </div>
       <div class="review-card">
         <div class="review-stars">★★★★★</div>
-        <p>"Herhalde İzmir'in en iyi beş pastacısından biri bunlar. Krema yapmayı biliyorlar."</p>
-        <span class="review-author">— Gülce B.</span>
+        <p>"[= content.review3Text]"</p>
+        <span class="review-author">— [= content.review3Author]</span>
       </div>
     </div>
   </div>
@@ -106,48 +102,86 @@
 <section class="section gallery-section">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Galeri</span>
-      <h2 class="section-title">Lezzetlerden Kareler</h2>
+      <span class="section-tag">[= content.galleryTag]</span>
+      <h2 class="section-title">[= content.galleryTitle]</h2>
     </div>
     <div class="gallery-grid">
-      <img src="/uploads/seed-cat_rus.jpg" alt="Medovik" loading="lazy">
-      <img src="/uploads/seed-spartak-1.jpg" alt="Spartak" loading="lazy">
-      <img src="/uploads/seed-full-medovik.jpg" alt="Medovik Full" loading="lazy">
-      <img src="/uploads/seed-medovik-1-1.jpg" alt="Medovik slice" loading="lazy">
-      <img src="/uploads/seed-napolyon-izmir.jpeg" alt="Napolyon" loading="lazy">
-      <img src="/uploads/seed-alsancak.jpeg" alt="Loccake Cafe" loading="lazy">
+      [# each items as item]
+        [# if item.image]
+        <img src="[= item.image]" alt="[= item.name]" loading="lazy">
+        [/if]
+      [/each]
     </div>
   </div>
 </section>
+
+<!-- BLOG -->
+[# if blogPosts.length]
+<section class="section home-blog-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">[= content.blogTag]</span>
+      <h2 class="section-title">[= content.blogTitle]</h2>
+      <p class="section-desc">[= content.blogDescription]</p>
+    </div>
+    <div class="blog-grid">
+      [# each blogPosts as post]
+        <article class="blog-card">
+          <a href="/blog/[= post.slug]" class="blog-card__image-wrap">
+            [# if post.coverImage]
+              <img src="[= post.coverImage]" alt="[= post.title]" loading="lazy">
+            [# else]
+              <div class="blog-card__placeholder">Loccake Blog</div>
+            [/if]
+          </a>
+          <div class="blog-card__body">
+            [# if post.publishedAtFormatted]
+              <time class="blog-card__date" datetime="[= post.publishedAtIso]">[= post.publishedAtFormatted]</time>
+            [/if]
+            <h3 class="blog-card__title"><a href="/blog/[= post.slug]">[= post.title]</a></h3>
+            [# if post.excerpt]
+              <p class="blog-card__excerpt">[= post.excerpt]</p>
+            [/if]
+            <a href="/blog/[= post.slug]" class="blog-card__link">Devamını oku →</a>
+          </div>
+        </article>
+      [/each]
+    </div>
+    <div class="section-cta">
+      <a href="/blog" class="btn btn--primary btn--lg">[= content.blogButton]</a>
+    </div>
+  </div>
+</section>
+[/if]
 
 <!-- SERVICES -->
 <section class="section" style="background: var(--color-warm);">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Hizmetlerimiz</span>
-      <h2 class="section-title">Sizin İçin Neler Yapıyoruz?</h2>
+      <span class="section-tag">[= content.servicesTag]</span>
+      <h2 class="section-title">[= content.servicesTitle]</h2>
     </div>
     <div class="info-cards-grid">
       <a href="/delivery" class="info-card">
         <div class="info-card__icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
         </div>
-        <h3>Paket Servis</h3>
-        <p>Mağazadan teslim, WhatsApp ve telefon ile kolayca sipariş verin.</p>
+        <h3>[= content.service1Title]</h3>
+        <p>[= content.service1Text]</p>
       </a>
       <a href="/payment" class="info-card">
         <div class="info-card__icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         </div>
-        <h3>Ödeme Yöntemleri</h3>
-        <p>Nakit, kredi kartı, EFT/havale ve online ödeme seçenekleri.</p>
+        <h3>[= content.service2Title]</h3>
+        <p>[= content.service2Text]</p>
       </a>
       <a href="/birthday" class="info-card">
         <div class="info-card__icon">
           <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
         </div>
-        <h3>Doğum Günü Partileri</h3>
-        <p>Özel günleriniz için pastalar ve organizasyon desteği sunuyoruz.</p>
+        <h3>[= content.service3Title]</h3>
+        <p>[= content.service3Text]</p>
       </a>
     </div>
   </div>
@@ -157,16 +191,14 @@
 <section class="section contact-section" id="contact">
   <div class="container">
     <div class="content-block content-block--center">
-      <span class="section-tag">İletişim</span>
-      <h2 class="section-title">Bize Ulaşın</h2>
+      <span class="section-tag">[= content.contactTag]</span>
+      <h2 class="section-title">[= content.contactTitle]</h2>
       <p class="content-block__text">
-        Alsancak Mahallesi 1440 Sokak 20/B, Konak, İzmir<br>
-        <a href="tel:+905558937078" style="color: var(--color-gold); font-weight: 600;">0555 893 70 78</a> · 
-        Pzt–Cum: 12:00 – 20:00
+        [= content.contactText]
       </p>
       <div class="content-block__actions">
-        <a href="/contact" class="btn btn--primary btn--lg">İletişim Sayfası</a>
-        <a href="https://wa.me/905558937078?text=Merhaba,%20bilgi%20almak%20istiyorum" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">WhatsApp ile Yazın</a>
+        <a href="/contact" class="btn btn--primary btn--lg">[= content.contactPrimaryButton]</a>
+        <a href="https://wa.me/905558937078?text=Merhaba,%20bilgi%20almak%20istiyorum" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">[= content.contactWhatsappButton]</a>
       </div>
     </div>
   </div>

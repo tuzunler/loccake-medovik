@@ -1,9 +1,9 @@
 <!-- PAGE HEADER -->
-<section class="page-header" style="background-image: url('/uploads/seed-cafe-1.jpeg');">
+<section class="page-header" style="background-image: url('[= content.headerImage]');" role="img" aria-label="[= content.headerImageAlt]">
   <div class="page-header__overlay"></div>
   <div class="container page-header__content">
-    <h1>Paket Servis</h1>
-    <p>Loccake lezzetlerini evinize getirmenin yolları</p>
+    <h1>[= content.headerTitle]</h1>
+    <p>[= content.headerSubtitle]</p>
   </div>
 </section>
 
@@ -11,9 +11,9 @@
 <section class="section">
   <div class="container">
     <div class="section-header">
-      <span class="section-tag">Sipariş Kanalları</span>
-      <h2 class="section-title">Nasıl Sipariş Verebilirsiniz?</h2>
-      <p class="section-desc">Birden fazla kanaldan kolayca sipariş verebilirsiniz</p>
+      <span class="section-tag">[= content.sectionTag]</span>
+      <h2 class="section-title">[= content.sectionTitle]</h2>
+      <p class="section-desc">[= content.sectionDescription]</p>
     </div>
 
     <div class="info-cards-grid">
@@ -21,45 +21,45 @@
         <div class="info-card__icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
         </div>
-        <h3>Mağazadan Teslim</h3>
-        <p>Alsancak'da bulunan cafemizi ziyaret ederek taptaze ve birbirinden leziz ürünlerimizi paket olarak alabilirsiniz.</p>
+        <h3>[= content.card1Title]</h3>
+        <p>[= content.card1Text]</p>
       </a>
 
-      <a href="https://wa.me/905558937078?text=Merhaba,%20sipari%C5%9F%20vermek%20istiyorum" class="info-card info-card--whatsapp" target="_blank" rel="noopener">
+      <a href="[= content.card2Href]" class="info-card info-card--whatsapp" target="_blank" rel="noopener">
         <div class="info-card__icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
         </div>
-        <h3>WhatsApp Sipariş</h3>
-        <p>WhatsApp ile bize kolayca ulaşabilirsiniz. Hızlı ve pratik sipariş için hemen yazın.</p>
+        <h3>[= content.card2Title]</h3>
+        <p>[= content.card2Text]</p>
       </a>
 
-      <a href="https://www.instagram.com/loccake" class="info-card" target="_blank" rel="noopener">
+      <a href="[= content.card3Href]" class="info-card" target="_blank" rel="noopener">
         <div class="info-card__icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="5"/><circle cx="17.5" cy="6.5" r="1.5"/></svg>
         </div>
-        <h3>Instagram DM</h3>
-        <p>Instagram sayfamızı ziyaret edip, Direct Message ile sipariş verebilirsiniz.</p>
+        <h3>[= content.card3Title]</h3>
+        <p>[= content.card3Text]</p>
       </a>
 
-      <a href="tel:+905558937078" class="info-card">
+      <a href="[= content.card4Href]" class="info-card">
         <div class="info-card__icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         </div>
-        <h3>Telefon</h3>
-        <p>Bizi arayarak sipariş verebilir veya sorularınızı sorabilirsiniz: 0555 893 70 78</p>
+        <h3>[= content.card4Title]</h3>
+        <p>[= content.card4Text]</p>
       </a>
 
       <a href="/menu" class="info-card">
         <div class="info-card__icon">
           <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
         </div>
-        <h3>Online Ödeme</h3>
-        <p>Banka kartı veya kredi kartı ile online ödeme kolaylığını yaşayın.</p>
+        <h3>[= content.card5Title]</h3>
+        <p>[= content.card5Text]</p>
       </a>
     </div>
 
     <div class="content-note">
-      <p>Fiyatlar mağaza teslim fiyatlarıdır. Teslimat ücreti dahil değildir.</p>
+      <p>[= content.noteText]</p>
     </div>
   </div>
 </section>
