@@ -4,13 +4,7 @@
   ],
   "functions": {
     "api/index.js": {
-      "includeFiles": [
-        "views/**",
-        "modules/**",
-        "lib/**",
-        "models/**",
-        "index.js"
-      ],
+      "includeFiles": "{views,modules,lib,models}/**",
       "maxDuration": 30
     }
   }
