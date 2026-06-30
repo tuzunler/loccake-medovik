@@ -1,0 +1,84 @@
+<div class="admin-layout">
+  [> partials/admin-sidebar]
+  <main class="admin-main">
+    <div class="admin-header">
+      <div>
+        <h1>Page Scan</h1>
+        <p class="text-muted">Availability and basic SEO scan for public pages on [= baseUrl].</p>
+      </div>
+      <a href="/admin/scan" class="btn btn-primary scan-trigger">Rescan</a>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-number">[= stats.total]</div>
+        <div class="stat-label">Pages Checked</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">[= stats.ok]</div>
+        <div class="stat-label">Passed</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">[= stats.issues]</div>
+        <div class="stat-label">With Issues</div>
+      </div>
+    </div>
+
+    <div class="card scan-card">
+      <table class="table scan-table">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>Page</th>
+            <th>URL</th>
+            <th>Response</th>
+            <th>SEO Signals</th>
+            <th>Issues</th>
+          </tr>
+        </thead>
+        <tbody>
+          [# each results as result]
+          <tr>
+            <td class="scan-status-cell">
+              [# if result.ok]
+                <span class="badge badge-active">OK</span>
+              [# else]
+                <span class="badge badge-inactive">Issue</span>
+              [/if]
+            </td>
+            <td class="scan-page-cell">
+              <strong>[= result.label]</strong>
+              <span class="text-muted">[= result.type]</span>
+            </td>
+            <td class="scan-url-cell">
+              <a href="[= result.path]" target="_blank" rel="noopener">[= result.path]</a>
+            </td>
+            <td class="scan-response-cell">
+              <span class="badge [# if result.status === 200]badge-active[# else]badge-inactive[/if]">[# if result.status][= result.status][# else]ERR[/if]</span>
+              <span class="text-muted">[= result.responseTimeMs] ms</span>
+            </td>
+            <td class="scan-signals">
+              <span class="scan-signal [# if result.h1Count === 1]scan-signal--ok[# else]scan-signal--bad[/if]">H1 [= result.h1Count]</span>
+              <span class="scan-signal [# if result.jsonLdCount > 0]scan-signal--ok[# else]scan-signal--bad[/if]">JSON-LD [= result.jsonLdCount]</span>
+              <span class="scan-signal scan-signal--neutral">Images [= result.imagesTotal]</span>
+              <span class="scan-signal [# if result.imagesMissingAlt === 0]scan-signal--ok[# else]scan-signal--bad[/if]">Missing alt [= result.imagesMissingAlt]</span>
+              <span class="scan-signal [# if result.imagesEmptyAlt === 0]scan-signal--ok[# else]scan-signal--bad[/if]">Empty alt [= result.imagesEmptyAlt]</span>
+              [# if result.title]<span class="scan-signal scan-signal--neutral">Title [= result.title.length]</span>[/if]
+              [# if result.description]<span class="scan-signal scan-signal--neutral">Desc [= result.description.length]</span>[/if]
+            </td>
+            <td>
+              [# if result.issues.length]
+                [# each result.issues as issue]
+                  <div class="scan-issue">[= issue]</div>
+                [/each]
+              [# else]
+                <span class="text-muted">No issues</span>
+              [/if]
+            </td>
+          </tr>
+          [/each]
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>

@@ -8,6 +8,14 @@
   [= raw(head)]
 </head>
 <body>
+  <div class="scan-loading" id="adminScanLoading" aria-hidden="true">
+    <div class="scan-loading__panel">
+      <div class="scan-spinner"></div>
+      <strong>Scanning public pages</strong>
+      <span>Checking availability, SEO tags and image alt text...</span>
+    </div>
+  </div>
+
   [# if flashes.success]
     [# each flashes.success as msg]
       <div class="flash flash-success">[= msg]</div>
@@ -22,6 +30,25 @@
   <script>
     document.querySelectorAll('.flash').forEach(function(el) {
       setTimeout(function() { el.style.opacity = '0'; setTimeout(function() { el.remove(); }, 300); }, 4000);
+    });
+
+    const adminScanLoading = document.getElementById('adminScanLoading');
+    function showAdminScanLoading() {
+      adminScanLoading?.classList.add('scan-loading--visible');
+      adminScanLoading?.setAttribute('aria-hidden', 'false');
+    }
+
+    document.querySelectorAll('a[href="/admin/scan"]').forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        if (link.target && link.target !== '_self') return;
+
+        event.preventDefault();
+        showAdminScanLoading();
+        window.setTimeout(function() {
+          window.location.href = link.href;
+        }, 120);
+      });
     });
   </script>
 </body>

@@ -15,13 +15,13 @@
             <label for="name">Name *</label>
             <input type="text" id="name" name="name" required minlength="2" maxlength="200"
               value="[# if isEdit][= item.name][/if]"
-              placeholder="e.g. Classic Honey Cake">
+              placeholder="e.g. Medovik">
           </div>
           <div class="form-group">
-            <label for="price">Price ($) *</label>
+            <label for="price">Price (₺) *</label>
             <input type="number" id="price" name="price" required min="0" step="1"
               value="[# if isEdit][= item.price][/if]"
-              placeholder="1500">
+              placeholder="250">
           </div>
         </div>
 
@@ -38,45 +38,41 @@
         <div class="form-group">
           <label for="description">Description</label>
           <textarea id="description" name="description" rows="4" maxlength="2000"
-            placeholder="Detailed cake/dessert description">[# if isEdit][= item.description][/if]</textarea>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="weight">Weight</label>
-            <input type="text" id="weight" name="weight"
-              value="[# if isEdit][= item.weight][/if]"
-              placeholder="1.2 kg">
-          </div>
-          <div class="form-group">
-            <label for="calories">Calories</label>
-            <input type="number" id="calories" name="calories" min="0"
-              value="[# if isEdit][= item.calories][/if]"
-              placeholder="350">
-          </div>
-          <div class="form-group">
-            <label for="portions">Portions</label>
-            <input type="text" id="portions" name="portions"
-              value="[# if isEdit][= item.portions][/if]"
-              placeholder="8-10 servings">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <label for="ingredients">Ingredients</label>
-          <textarea id="ingredients" name="ingredients" rows="3"
-            placeholder="Flour, sugar, honey, sour cream, butter...">[# if isEdit][= item.ingredients][/if]</textarea>
+            placeholder="Short product description">[# if isEdit][= item.description][/if]</textarea>
         </div>
 
         <div class="form-group">
           <label for="image">Image</label>
-          <input type="file" id="image" name="image" accept="image/jpeg,image/png,image/webp,image/gif,image/svg+xml" class="file-input">
+          <input type="file" id="image" name="image" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,image/svg+xml,image/avif" class="file-input">
           <small class="form-hint">JPG, PNG, WebP, GIF, SVG — max 5 MB</small>
           [# if isEdit]
             [# if item.image]
               <div class="form-preview">
                 <img src="[= item.image]" alt="Preview">
                 <span class="preview-label">Current image</span>
+              </div>
+            [/if]
+          [/if]
+        </div>
+
+        <div class="form-group">
+          <label for="gallery">Gallery</label>
+          <input type="file" id="gallery" name="gallery" accept="image/jpeg,image/jpg,image/png,image/webp,image/gif,image/svg+xml,image/avif" class="file-input" multiple>
+          <small class="form-hint">Upload additional photos (multiple allowed)</small>
+          [# if isEdit]
+            [# if item.gallery.length > 0]
+              <p class="gallery-preview__hint">Select the photos to remove, then save the item.</p>
+              <div class="gallery-preview">
+                [# each item.gallery as photo]
+                <div class="gallery-preview__item">
+                  <img src="[= photo]" alt="Gallery photo">
+                  <label class="gallery-preview__remove">
+                    <input type="checkbox" name="removeGallery" value="[= photo]">
+                    <span class="gallery-preview__remove-label gallery-preview__remove-label--idle">Mark for removal</span>
+                    <span class="gallery-preview__remove-label gallery-preview__remove-label--active">Will be removed</span>
+                  </label>
+                </div>
+                [/each]
               </div>
             [/if]
           [/if]

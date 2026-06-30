@@ -1,0 +1,22 @@
+<nav class="navbar [= navbarClass]">
+  <div class="container navbar__inner">
+    <a href="/" class="logo">
+      <span class="logo-icon"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5c0 .5-.1 1-.2 1.5h2.7a1.5 1.5 0 0 1 0 3h-.3L18 20a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2l-1.2-8.5h-.3a1.5 1.5 0 0 1 0-3h2.7A5 5 0 0 1 7 7a5 5 0 0 1 5-5z"/></svg></span>
+      <span class="logo-text">[= layoutContent.brandName]</span>
+    </a>
+    <ul class="nav-menu">
+      <li><a href="/" class="nav-link [# if page === 'home']active[/if]">[= layoutContent.navHome]</a></li>
+      <li><a href="/menu" class="nav-link [# if page === 'menu']active[/if]">[= layoutContent.navMenu]</a></li>
+      <li><a href="/about" class="nav-link [# if page === 'about']active[/if]">[= layoutContent.navAbout]</a></li>
+      <li><a href="/blog" class="nav-link [# if page === 'blog']active[/if]">[= layoutContent.navBlog]</a></li>
+      <li><a href="/contact" class="nav-link [# if page === 'contact']active[/if]">[= layoutContent.navContact]</a></li>
+      <li><a href="#" class="nav-link nav-link--ara-trigger">[= layoutContent.navCall]</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="/menu" class="btn btn--primary btn--sm">[= layoutContent.navOrder]</a>
+    </div>
+    <button class="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>

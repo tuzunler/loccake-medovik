@@ -1,4 +1,5 @@
 import Category from '../../models/Category.js'
+import MenuItem from '../../models/MenuItem.js'
 
 export const categoryStore = {
   async list() {
@@ -7,6 +8,10 @@ export const categoryStore = {
 
   async getById(id) {
     return Category.findById(id)
+  },
+
+  async countItems(id) {
+    return MenuItem.countDocuments({ categoryId: id })
   },
 
   async create(data) {

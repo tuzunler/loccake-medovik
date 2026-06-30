@@ -6,6 +6,7 @@ export async function loginPage(request) {
 
 export async function login(request, { authService }) {
   const { email, password } = request.body
+  const isProduction = process.env.NODE_ENV === 'production'
 
   const result = await authService.login(email, password)
   if (!result) {
@@ -20,7 +21,7 @@ export async function login(request, { authService }) {
 
   request.cookie('token', result.token, {
     httpOnly: true,
-    secure: false,
+    secure: isProduction,
     sameSite: 'Lax',
     maxAge: 7 * 24 * 60 * 60,
   })

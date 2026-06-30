@@ -1,0 +1,113 @@
+<!-- PAGE HEADER -->
+<section class="page-header" style="background-image: url('[= content.headerImage]');" role="img" aria-label="[= content.headerImageAlt]">
+  <div class="page-header__overlay"></div>
+  <div class="container page-header__content">
+    <h1>[= content.headerTitle]</h1>
+    <p>[= content.headerSubtitle]</p>
+  </div>
+</section>
+
+<!-- PASTRIES SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-content">
+        <span class="section-tag">[= content.pastriesTag]</span>
+        <h2 class="section-title">[= content.pastriesTitle]</h2>
+        <p>[= content.pastriesText1]</p>
+        <p>[= content.pastriesText2]</p>
+        <p>[= content.pastriesText3]</p>
+        <p>[= content.pastriesText4]</p>
+        <a href="/menu" class="btn btn--primary" style="margin-top: 12px;">[= content.pastriesButton]</a>
+      </div>
+      <div class="about-image">
+        [# if featuredCategory && featuredCategory.image]
+        <img src="[= featuredCategory.image]" alt="[= featuredCategory.name]" loading="lazy">
+        [# else]
+        <img src="/uploads/seed-medovik.jpg" alt="Rus Pastaları" loading="lazy">
+        [/if]
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCT CATEGORIES -->
+<section class="section" style="background: var(--color-warm);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">[= content.categoriesTag]</span>
+      <h2 class="section-title">[= content.categoriesTitle]</h2>
+    </div>
+    <div class="features-grid">
+      [# each categories as cat]
+      <div class="feature-card">
+        <div class="feature-card__icon">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a5 5 0 0 1 5 5c0 .5-.1 1-.2 1.5h2.7a1.5 1.5 0 0 1 0 3h-.3L18 20a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2l-1.2-8.5h-.3a1.5 1.5 0 0 1 0-3h2.7A5 5 0 0 1 7 7a5 5 0 0 1 5-5z"/></svg>
+        </div>
+        <h3>[= cat.name]</h3>
+        <p>[= cat.description]</p>
+      </div>
+      [/each]
+    </div>
+  </div>
+</section>
+
+<!-- CAFE SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="about-grid about-grid--reverse">
+      <div class="about-image">
+        <img src="[= content.cafeImage]" alt="[= content.cafeImageAlt]" loading="lazy">
+      </div>
+      <div class="about-content">
+        <span class="section-tag">[= content.cafeTag]</span>
+        <h2 class="section-title">[= content.cafeTitle]</h2>
+        <p>[= content.cafeText1]</p>
+        <p>[= content.cafeText2]</p>
+        <p>[= content.cafeText3]</p>
+        <p>[= content.cafeText4]</p>
+        <a href="/contact" class="btn btn--outline" style="margin-top: 12px;">[= content.cafeButton]</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAFE GALLERY -->
+<section class="section" style="background: var(--color-warm);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">[= content.galleryTag]</span>
+      <h2 class="section-title">[= content.galleryTitle]</h2>
+    </div>
+    <div class="gallery-grid">
+      <img src="[= content.gallery1Image]" alt="[= content.gallery1Alt]" loading="lazy">
+      <img src="[= content.gallery2Image]" alt="[= content.gallery2Alt]" loading="lazy">
+      <img src="[= content.gallery3Image]" alt="[= content.gallery3Alt]" loading="lazy">
+      <img src="[= content.gallery4Image]" alt="[= content.gallery4Alt]" loading="lazy">
+      <img src="[= content.gallery5Image]" alt="[= content.gallery5Alt]" loading="lazy">
+      <img src="[= content.gallery6Image]" alt="[= content.gallery6Alt]" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- LOCATION CAKE -->
+<section class="section">
+  <div class="container">
+    <div class="content-block content-block--center">
+      <span class="section-tag">[= content.storyTag]</span>
+      <h2 class="section-title">[= content.storyTitle]</h2>
+      <p class="content-block__text">
+        [= content.storyText1]
+      </p>
+      <p class="content-block__text">
+        [= content.storyText2]
+      </p>
+      <p class="content-block__text">
+        [= content.storyText3]
+      </p>
+      <div class="content-block__actions">
+        <a href="/contact" class="btn btn--primary btn--lg">[= content.storyButton]</a>
+      </div>
+    </div>
+  </div>
+</section>

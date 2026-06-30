@@ -1,0 +1,205 @@
+<!-- HERO -->
+<section class="hero" style="background-image: url('[= content.heroImage]');" role="img" aria-label="[= content.heroImageAlt]">
+  <div class="hero__overlay"></div>
+  <div class="container hero__content">
+    <div class="hero__badge">[= content.heroBadge]</div>
+    <h1 class="hero__title">
+      [= content.heroTitleLine1]<br><em>[= content.heroTitleEmphasis]</em>
+    </h1>
+    <p class="hero__desc">
+      [= content.heroDescription]
+    </p>
+    <div class="hero__buttons">
+      <a href="/menu" class="btn btn--primary btn--lg">[= content.heroPrimaryButton]</a>
+      <a href="/about" class="btn btn--outline-light btn--lg">[= content.heroSecondaryButton]</a>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUCTS -->
+<section class="section products-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">[= content.productsTag]</span>
+      <h2 class="section-title">[= content.productsTitle]</h2>
+      <p class="section-desc">[= content.productsDescription]</p>
+    </div>
+    <div class="products-grid">
+      [# each items as item]
+      <a href="/menu/[= item._id]" class="product-card">
+        <div class="product-card__img">
+          [# if item.image]
+          <img src="[= item.image]" alt="[= item.name]" loading="lazy">
+          [# else]
+          <img src="/uploads/seed-medovik.jpg" alt="[= item.name]" loading="lazy">
+          [/if]
+        </div>
+        <div class="product-card__info">
+          [# if item.categoryId]
+          <span class="product-card__category">[= item.categoryId.name]</span>
+          [/if]
+          <h3>[= item.name]</h3>
+          <p>[= item.description]</p>
+          <span class="product-card__price">₺[= item.price]</span>
+        </div>
+      </a>
+      [/each]
+    </div>
+    <div class="section-cta">
+      <a href="/menu" class="btn btn--primary btn--lg">[= content.productsButton]</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="container about-grid">
+    <div class="about-image">
+      <img src="[= content.aboutImage]" alt="[= content.aboutImageAlt]" loading="lazy">
+    </div>
+    <div class="about-content">
+      <span class="section-tag">[= content.aboutTag]</span>
+      <h2 class="section-title">[= content.aboutTitle]</h2>
+      <p>
+        [= content.aboutText1]
+      </p>
+      <p>
+        [= content.aboutText2]
+      </p>
+      <a href="/about" class="btn btn--primary">[= content.aboutButton]</a>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section reviews-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">[= content.reviewsTag]</span>
+      <h2 class="section-title">[= content.reviewsTitle]</h2>
+    </div>
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"[= content.review1Text]"</p>
+        <span class="review-author">— [= content.review1Author]</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"[= content.review2Text]"</p>
+        <span class="review-author">— [= content.review2Author]</span>
+      </div>
+      <div class="review-card">
+        <div class="review-stars">★★★★★</div>
+        <p>"[= content.review3Text]"</p>
+        <span class="review-author">— [= content.review3Author]</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section gallery-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">[= content.galleryTag]</span>
+      <h2 class="section-title">[= content.galleryTitle]</h2>
+    </div>
+    <div class="gallery-grid">
+      [# each items as item]
+        [# if item.image]
+        <img src="[= item.image]" alt="[= item.name]" loading="lazy">
+        [/if]
+      [/each]
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+[# if blogPosts.length]
+<section class="section home-blog-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">[= content.blogTag]</span>
+      <h2 class="section-title">[= content.blogTitle]</h2>
+      <p class="section-desc">[= content.blogDescription]</p>
+    </div>
+    <div class="blog-grid">
+      [# each blogPosts as post]
+        <article class="blog-card">
+          <a href="/blog/[= post.slug]" class="blog-card__image-wrap">
+            [# if post.coverImage]
+              <img src="[= post.coverImage]" alt="[= post.title]" loading="lazy">
+            [# else]
+              <div class="blog-card__placeholder">Loccake Blog</div>
+            [/if]
+          </a>
+          <div class="blog-card__body">
+            [# if post.publishedAtFormatted]
+              <time class="blog-card__date" datetime="[= post.publishedAtIso]">[= post.publishedAtFormatted]</time>
+            [/if]
+            <h3 class="blog-card__title"><a href="/blog/[= post.slug]">[= post.title]</a></h3>
+            [# if post.excerpt]
+              <p class="blog-card__excerpt">[= post.excerpt]</p>
+            [/if]
+            <a href="/blog/[= post.slug]" class="blog-card__link">Devamını oku →</a>
+          </div>
+        </article>
+      [/each]
+    </div>
+    <div class="section-cta">
+      <a href="/blog" class="btn btn--primary btn--lg">[= content.blogButton]</a>
+    </div>
+  </div>
+</section>
+[/if]
+
+<!-- SERVICES -->
+<section class="section" style="background: var(--color-warm);">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag">[= content.servicesTag]</span>
+      <h2 class="section-title">[= content.servicesTitle]</h2>
+    </div>
+    <div class="info-cards-grid">
+      <a href="/delivery" class="info-card">
+        <div class="info-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h3>[= content.service1Title]</h3>
+        <p>[= content.service1Text]</p>
+      </a>
+      <a href="/payment" class="info-card">
+        <div class="info-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+        </div>
+        <h3>[= content.service2Title]</h3>
+        <p>[= content.service2Text]</p>
+      </a>
+      <a href="/birthday" class="info-card">
+        <div class="info-card__icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <h3>[= content.service3Title]</h3>
+        <p>[= content.service3Text]</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="content-block content-block--center">
+      <span class="section-tag">[= content.contactTag]</span>
+      <h2 class="section-title">[= content.contactTitle]</h2>
+      <p class="content-block__text">
+        [= content.contactText]
+      </p>
+      <div class="content-block__actions">
+        <a href="/contact" class="btn btn--primary btn--lg">[= content.contactPrimaryButton]</a>
+        <a href="https://wa.me/905558937078?text=Merhaba,%20bilgi%20almak%20istiyorum" class="btn btn--whatsapp btn--lg" target="_blank" rel="noopener">[= content.contactWhatsappButton]</a>
+      </div>
+    </div>
+  </div>
+</section>

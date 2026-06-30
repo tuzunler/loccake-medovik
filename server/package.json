@@ -6,6 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "seed": "node seed.js",
+    "drop-db": "node drop-db.js",
+    "drop-db:yes": "node drop-db.js --yes",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
