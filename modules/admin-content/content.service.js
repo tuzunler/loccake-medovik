@@ -1,5 +1,5 @@
 import SiteContent from '../../models/SiteContent.js'
-import { deleteImage, saveImage } from '../../lib/upload.js'
+import { deleteImage, saveImage, isRemoteImage } from '../../lib/upload.js'
 import { readFile } from 'node:fs/promises'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -307,7 +307,13 @@ function galleryFields(prefix, images) {
 }
 
 async function getImageMeta(imageUrl) {
-  if (!imageUrl || !imageUrl.startsWith('/uploads/')) return null
+  if (!imageUrl) return null
+
+  if (isRemoteImage(imageUrl)) {
+    return { label: 'Vercel Blob' }
+  }
+
+  if (!imageUrl.startsWith('/uploads/')) return null
 
   const filename = imageUrl.replace('/uploads/', '')
   if (filename.includes('/') || filename.includes('..')) return null
